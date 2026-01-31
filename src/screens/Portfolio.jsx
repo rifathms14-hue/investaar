@@ -1,10 +1,45 @@
 import { Link } from 'react-router-dom'
 
 const holdings = [
-  { id: 'M-22', areaName: 'Melur', regionName: 'Madurai', status: 'EMI Active', progress: 25, type: 'EMI Active', bookedOn: '10 Jan 2025', nextEmiDate: '15 Feb 2026' },
-  { id: 'GF-01', areaName: 'Greenfield', regionName: 'Chennai', status: 'Reserved', progress: 15, type: 'EMI Active', bookedOn: '5 Dec 2025', nextEmiDate: '20 Feb 2026' },
-  { id: 'OMR-02', areaName: 'OMR', regionName: 'Chennai', status: 'Ownership Complete', progress: 100, type: 'Full Payment', bookedOn: '1 Aug 2024', documentationDate: '15 Sep 2024', nextStepsSnippet: 'Claim your Star Frame or view records.' },
+  { id: 'M-22', areaName: 'Melur', regionName: 'Madurai', status: 'EMI Active', progress: 25, type: 'EMI Active', bookedOn: '10 Jan 2025', nextEmiDate: '15 Feb 2026', valuation: 1850000, emiTenureMonths: 36, emiRemainingMonths: 27, pendingEmiValue: 1387500 },
+  { id: 'GF-01', areaName: 'Greenfield', regionName: 'Chennai', status: 'Reserved', progress: 15, type: 'EMI Active', bookedOn: '5 Dec 2025', nextEmiDate: '20 Feb 2026', valuation: 2200000, emiTenureMonths: 36, emiRemainingMonths: 33, pendingEmiValue: 1870000 },
+  { id: 'OMR-02', areaName: 'OMR', regionName: 'Chennai', status: 'Ownership Complete', progress: 100, type: 'Full Payment', bookedOn: '1 Aug 2024', documentationDate: '15 Sep 2024', nextStepsSnippet: 'Claim your Star Frame or view records.', valuation: 1520000 },
 ]
+
+// Summary derived from holdings
+const totalValuation = holdings.reduce((sum, p) => sum + (p.valuation || 0), 0)
+const emiHoldings = holdings.filter((p) => p.type === 'EMI Active')
+const pendingEmiTenures = emiHoldings.length
+const pendingEmiValue = emiHoldings.reduce((sum, p) => sum + (p.pendingEmiValue || 0), 0)
+const starFramesCollected = holdings.filter((p) => p.status === 'Ownership Complete').length
+
+function formatLakhs (n) {
+  if (n >= 100000) return `₹${(n / 100000).toFixed(2)} L`
+  return `₹${(n / 1000).toFixed(0)}K`
+}
+
+function PortfolioSummary() {
+  return (
+    <div className="card p-5 mb-6">
+      <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">Portfolio at a glance</h2>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div>
+          <p className="text-xs text-gray-500 uppercase tracking-wider">Total valuation</p>
+          <p className="text-xl font-bold text-white mt-0.5">{formatLakhs(totalValuation)}</p>
+        </div>
+        <div>
+          <p className="text-xs text-gray-500 uppercase tracking-wider">Pending EMI</p>
+          <p className="text-xl font-bold text-violet mt-0.5">{pendingEmiTenures} tenure{pendingEmiTenures !== 1 ? 's' : ''}</p>
+          <p className="text-sm text-gray-400 mt-0.5">{formatLakhs(pendingEmiValue)} remaining</p>
+        </div>
+        <div>
+          <p className="text-xs text-gray-500 uppercase tracking-wider">Star frames</p>
+          <p className="text-xl font-bold text-gold mt-0.5">{starFramesCollected} collected</p>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 function StatusChip({ status }) {
   const styles = {
@@ -84,8 +119,13 @@ function PlotCard({ plot }) {
 export default function Portfolio() {
   return (
     <div className="max-w-lg mx-auto">
+      <header className="p-6 pb-2">
+        <h1 className="text-2xl font-bold tracking-tight">Portfolio</h1>
+        <p className="text-gray-400 mt-1">Your Asset Holdings</p>
+      </header>
       <section className="px-6 pt-2 space-y-4 pb-8">
-        <p className="text-gray-400 text-sm">Your Asset Holdings</p>
+        <PortfolioSummary />
+        <p className="text-gray-400 text-sm -mt-2">Holdings</p>
         {holdings.map((plot) => (
           <PlotCard key={plot.id} plot={plot} />
         ))}
