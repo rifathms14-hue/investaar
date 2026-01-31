@@ -94,6 +94,20 @@ textarea {
   animation: slide-up 0.3s ease-out forwards;
 }
 
+/* Holographic gradient animation */
+@keyframes holographic-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-holographic {
+  animation: holographic-shift 8s ease-in-out infinite;
+}
+
 /* Hide scrollbar for horizontal scroll sections */
 .scrollbar-hide {
   -ms-overflow-style: none;

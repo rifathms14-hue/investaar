@@ -20,21 +20,64 @@ function formatLakhs (n) {
 
 function PortfolioSummary() {
   return (
-    <div className="card p-5 mb-6">
-      <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">Portfolio at a glance</h2>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div>
-          <p className="text-xs text-gray-500 uppercase tracking-wider">Total valuation</p>
-          <p className="text-xl font-bold text-white mt-0.5">{formatLakhs(totalValuation)}</p>
-        </div>
-        <div>
-          <p className="text-xs text-gray-500 uppercase tracking-wider">Pending EMI</p>
-          <p className="text-xl font-bold text-violet mt-0.5">{pendingEmiTenures} tenure{pendingEmiTenures !== 1 ? 's' : ''}</p>
-          <p className="text-sm text-gray-400 mt-0.5">{formatLakhs(pendingEmiValue)} remaining</p>
-        </div>
-        <div>
-          <p className="text-xs text-gray-500 uppercase tracking-wider">Star frames</p>
-          <p className="text-xl font-bold text-gold mt-0.5">{starFramesCollected} collected</p>
+    <div 
+      className="card p-5 mb-6 relative overflow-hidden"
+      style={{
+        boxShadow: `
+          inset 0 0 30px rgba(212, 175, 55, 0.08),
+          inset 0 0 15px rgba(124, 58, 237, 0.05),
+          0 0 20px rgba(212, 175, 55, 0.05),
+          0 0 10px rgba(124, 58, 237, 0.03)
+        `,
+        position: 'relative'
+      }}
+    >
+      {/* Holographic gradient overlay - very subtle */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-15 animate-holographic"
+        style={{
+          background: `
+            linear-gradient(135deg,
+              rgba(212, 175, 55, 0.04) 0%,
+              transparent 25%,
+              transparent 50%,
+              rgba(124, 58, 237, 0.04) 75%,
+              rgba(212, 175, 55, 0.02) 100%
+            )
+          `,
+          backgroundSize: '200% 200%'
+        }}
+      />
+      
+      {/* Inner glow effect - very subtle */}
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(circle at 30% 30%, rgba(212, 175, 55, 0.06) 0%, transparent 40%),
+            radial-gradient(circle at 70% 70%, rgba(124, 58, 237, 0.06) 0%, transparent 40%)
+          `,
+          mixBlendMode: 'screen',
+          opacity: 0.5
+        }}
+      />
+      
+      <div className="relative z-10">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">Portfolio at a glance</h2>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div>
+            <p className="text-xs text-gray-500 uppercase tracking-wider">Total valuation</p>
+            <p className="text-xl font-bold text-white mt-0.5">{formatLakhs(totalValuation)}</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-500 uppercase tracking-wider">Pending EMI</p>
+            <p className="text-xl font-bold text-violet mt-0.5">{pendingEmiTenures} tenure{pendingEmiTenures !== 1 ? 's' : ''}</p>
+            <p className="text-sm text-gray-400 mt-0.5">{formatLakhs(pendingEmiValue)} remaining</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-500 uppercase tracking-wider">Star frames</p>
+            <p className="text-xl font-bold text-gold mt-0.5">{starFramesCollected} collected</p>
+          </div>
         </div>
       </div>
     </div>
