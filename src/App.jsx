@@ -22,6 +22,7 @@ import StarFrameCustomize from './screens/starframe/StarFrameCustomize'
 import StarFrameDelivery from './screens/starframe/StarFrameDelivery'
 import StarFrameComplete from './screens/starframe/StarFrameComplete'
 import OnboardingFlow from './screens/onboarding/OnboardingFlow'
+import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
   return (
@@ -30,8 +31,8 @@ export default function App() {
         {/* Onboarding Flow - Outside Layout */}
         <Route path="/onboarding/*" element={<OnboardingFlow />} />
         
-        {/* Main App - Inside Layout */}
-        <Route path="/" element={<Layout />}>
+        {/* Main App - Inside Layout (Protected by onboarding check) */}
+        <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
           <Route index element={<Market />} />
           <Route path="pre-booking" element={<PreBookingCampaigns />} />
           <Route path="pre-booking/:campaignId/pool" element={<AllocationPoolOverview />} />
