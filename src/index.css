@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-base text-white antialiased;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.btn-primary {
+  @apply text-base font-semibold px-6 py-3 border;
+  border-radius: 0;
+  background: linear-gradient(135deg, #E8D48B 0%, #D4AF37 25%, #B8860B 50%, #D4AF37 75%, #E5C65C 100%);
+  border-color: #D4AF37;
+  color: #0D0D0D;
+  transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-primary:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.btn-secondary {
+  @apply font-semibold px-6 py-3 border;
+  border-radius: 0;
+  background: linear-gradient(135deg, rgba(232, 212, 139, 0.15) 0%, rgba(212, 175, 55, 0.1) 50%, rgba(184, 134, 11, 0.15) 100%);
+  border-color: #D4AF37;
+  color: #E5C65C;
+  transition: background 0.2s ease, filter 0.2s ease;
+}
+.btn-secondary:hover {
+  background: linear-gradient(135deg, rgba(232, 212, 139, 0.25) 0%, rgba(212, 175, 55, 0.2) 50%, rgba(184, 134, 11, 0.25) 100%);
+  filter: brightness(1.1);
+}
+
+.card {
+  @apply bg-surface border border-border;
+  border-radius: 0;
+}
+
+.chip {
+  @apply px-3 py-1.5 text-xs font-medium border;
+  border-radius: 0;
+}
+
+/* Sharp premium edges throughout */
+input[type="checkbox"],
+input[type="radio"],
+select {
+  border-radius: 0;
+}
