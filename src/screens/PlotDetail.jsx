@@ -1,49 +1,45 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { getPlot } from '../data/locations'
 
-const plotData = {
-  S14: {
-    id: 'S14',
-    layout: 'Greenfield Layout · Phase 1',
-    price: '₹18,50,000',
-    emi: '₹12,400',
-    status: 'Open',
-    size: '1200 sqft',
-    facing: 'East',
-    roadWidth: '30 ft',
-    distanceToRoad: '50 m',
-    zoneType: 'Residential',
-    location: [
-      { label: 'School', dist: '2 km' },
-      { label: 'Hospital', dist: '4 km' },
-      { label: 'Metro', dist: '3 km' },
-    ],
-    trust: ['Layout approval', 'Ownership chain', 'Booking terms', 'Registration sample'],
-  },
-  N07: {
-    id: 'N07',
-    layout: 'Greenfield Layout · Phase 1',
-    price: '₹22,00,000',
-    emi: '₹14,800',
-    status: 'High Interest',
-    size: '1500 sqft',
-    facing: 'North',
-    roadWidth: '40 ft',
-    distanceToRoad: '30 m',
-    zoneType: 'Residential',
-    location: [
-      { label: 'School', dist: '1.5 km' },
-      { label: 'Hospital', dist: '3 km' },
-    ],
-    trust: ['Layout approval', 'Ownership chain', 'Booking terms', 'Registration sample'],
-  },
+const defaultDetail = {
+  layout: 'Greenfield Layout · Phase 1',
+  facing: 'East',
+  roadWidth: '30 ft',
+  distanceToRoad: '50 m',
+  zoneType: 'Residential',
+  location: [
+    { label: 'School', dist: '2 km' },
+    { label: 'Hospital', dist: '4 km' },
+    { label: 'Metro', dist: '3 km' },
+  ],
+  trust: ['Layout approval', 'Ownership chain', 'Booking terms', 'Registration sample'],
 }
 
-const defaultPlot = plotData.S14
-
 export default function PlotDetail() {
-  const { id } = useParams()
-  const plot = plotData[id] || { ...defaultPlot, id: id || 'S14' }
+  const { id, regionId, areaId, plotId } = useParams()
+  const plotKey = plotId || id
+  const locationPlot = getPlot(plotKey)
+  const plot = locationPlot
+    ? {
+        ...defaultDetail,
+        ...locationPlot,
+        emi: locationPlot.emi?.replace('/mo', '') ?? locationPlot.emi,
+      }
+    : {
+        ...defaultDetail,
+        id: plotKey || 'M-22',
+        areaName: 'Melur',
+        regionName: 'Madurai',
+        price: '₹18,50,000',
+        emi: '12,400',
+        status: 'Open',
+        size: '1200 sqft',
+      }
+  const contextLabel = plot.areaName && plot.regionName
+    ? `${plot.id} · ${plot.areaName}, ${plot.regionName}`
+    : plot.id
+  const backTo = regionId && areaId ? `/regions/${regionId}/areas/${areaId}/plots` : '/'
   const [currentIndex, setCurrentIndex] = useState(0)
   const carouselRef = useRef(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -167,7 +163,7 @@ export default function PlotDetail() {
   return (
     <div className="max-w-lg mx-auto min-h-screen pb-32">
       <header className="sticky top-0 bg-base/95 backdrop-blur border-b border-border z-10">
-        <Link to="/" className="flex items-center gap-2 p-4 text-gray-400 hover:text-white transition-colors">
+        <Link to={backTo} className="flex items-center gap-2 p-4 text-gray-400 hover:text-white transition-colors">
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
@@ -177,7 +173,7 @@ export default function PlotDetail() {
 
       <div className="p-6 space-y-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">{plot.id}</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{contextLabel}</h1>
           <p className="text-gray-400 mt-1">{plot.layout}</p>
           <div className="flex flex-wrap gap-4 mt-3">
             <span className="text-xl font-semibold">{plot.price}</span>
@@ -413,75 +409,76 @@ export default function PlotDetail() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Trust Snapshot */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3">Trust Snapshot</h3>
-            <div className="grid grid-cols-2 gap-2">
-              {plot.trust.map((item) => (
-                <div key={item} className="card p-4 flex items-center gap-2 text-sm">
-                  <span className="text-success">✔</span>
-                  <span className="text-gray-300">{item}</span>
-                </div>
-              ))}
+        {/* Trust Snapshot */}
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3">Trust Snapshot</h3>
+          <div className="grid grid-cols-2 gap-2">
+            {plot.trust.map((item) => (
+              <div key={item} className="card p-4 flex items-center gap-2 text-sm">
+                <span className="text-success">✔</span>
+                <span className="text-gray-300">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Plots Layout Blueprint */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400">Plots Layout</h3>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => handleZoom(-0.1)}
+                className="w-7 h-7 rounded border border-border bg-surface flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold transition-colors"
+                aria-label="Zoom out"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
+                </svg>
+              </button>
+              <span className="text-xs text-gray-500 min-w-[3rem] text-center">{Math.round(zoom * 100)}%</span>
+              <button
+                onClick={() => handleZoom(0.1)}
+                className="w-7 h-7 rounded border border-border bg-surface flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold transition-colors"
+                aria-label="Zoom in"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                </svg>
+              </button>
+              <button
+                onClick={() => { setZoom(1); setPanX(0); setPanY(0); }}
+                className="w-7 h-7 rounded border border-border bg-surface flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold transition-colors ml-1"
+                aria-label="Reset view"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </button>
             </div>
           </div>
           
-          {/* Plots Layout Blueprint */}
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400">Plots Layout</h3>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => handleZoom(-0.1)}
-                  className="w-7 h-7 rounded border border-border bg-surface flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold transition-colors"
-                  aria-label="Zoom out"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
-                  </svg>
-                </button>
-                <span className="text-xs text-gray-500 min-w-[3rem] text-center">{Math.round(zoom * 100)}%</span>
-                <button
-                  onClick={() => handleZoom(0.1)}
-                  className="w-7 h-7 rounded border border-border bg-surface flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold transition-colors"
-                  aria-label="Zoom in"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => { setZoom(1); setPanX(0); setPanY(0); }}
-                  className="w-7 h-7 rounded border border-border bg-surface flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold transition-colors ml-1"
-                  aria-label="Reset view"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            
-            <div className="card overflow-hidden">
-              <div
-                ref={plotLayoutRef}
-                className="relative overflow-hidden bg-surface-elevated border border-border"
-                style={{ height: '300px', cursor: isPanning ? 'grabbing' : 'grab' }}
-                onMouseDown={handlePanStart}
-                onMouseMove={handlePanMove}
-                onMouseUp={handlePanEnd}
-                onMouseLeave={handlePanEnd}
-                onTouchStart={handlePanStart}
-                onTouchMove={handlePanMove}
-                onTouchEnd={handlePanEnd}
-                onWheel={(e) => {
-                  e.preventDefault()
-                  handleZoom(e.deltaY > 0 ? -0.1 : 0.1)
-                }}
-              >
+          <div className="card overflow-hidden">
+            <div
+              ref={plotLayoutRef}
+              className="relative overflow-hidden bg-surface-elevated border border-border select-none"
+              style={{ height: '300px', cursor: isPanning ? 'grabbing' : 'grab', userSelect: 'none' }}
+              onMouseDown={handlePanStart}
+              onSelectStart={(e) => e.preventDefault()}
+              onContextMenu={(e) => e.preventDefault()}
+              onMouseMove={handlePanMove}
+              onMouseUp={handlePanEnd}
+              onMouseLeave={handlePanEnd}
+              onTouchStart={handlePanStart}
+              onTouchMove={handlePanMove}
+              onTouchEnd={handlePanEnd}
+              onWheel={(e) => {
+                e.preventDefault()
+                handleZoom(e.deltaY > 0 ? -0.1 : 0.1)
+              }}
+            >
                 <div
-                  className="absolute inset-0 flex flex-col items-center justify-center"
+                  className="absolute inset-0 flex flex-col items-center justify-center select-none"
                   style={{
                     transform: `translate(${panX}px, ${panY}px) scale(${zoom})`,
                     transformOrigin: 'center center',
@@ -519,7 +516,7 @@ export default function PlotDetail() {
                                 <div
                                   className={`
                                     w-12 h-12 flex items-center justify-center text-[10px] font-bold
-                                    border-2 transition-all cursor-pointer relative z-10
+                                    border-2 transition-all cursor-pointer relative z-10 pointer-events-auto
                                     ${status === 'selected' 
                                       ? 'bg-gold/20 border-gold text-gold shadow-lg shadow-gold/20' 
                                       : status === 'booked'
@@ -589,7 +586,6 @@ export default function PlotDetail() {
                     <span className="text-gray-300">Booked</span>
                   </div>
                 </div>
-              </div>
             </div>
           </div>
         </div>
@@ -598,17 +594,22 @@ export default function PlotDetail() {
       <div className="fixed bottom-0 left-0 right-0 bg-surface-elevated border-t border-border p-6 max-w-lg mx-auto">
         <div className="flex gap-3 mb-4">
           <Link
-            to={`/allocation/${plot.id}`}
+            to={`/purchase/${plot.id}`}
+            state={{ purchaseType: 'full', regionId, areaId }}
             className="btn-primary flex-1 text-center py-3"
           >
-            Start Pre-Booking
+            Proceed to Purchase
           </Link>
-          <button className="btn-secondary flex-1 text-center py-3">
-            Check for EMI Plans
-          </button>
+          <Link
+            to={`/purchase/${plot.id}`}
+            state={{ purchaseType: 'emi', regionId, areaId }}
+            className="btn-secondary flex-1 text-center py-3"
+          >
+            Apply for EMI
+          </Link>
         </div>
         <p className="text-gray-400 text-sm text-center leading-relaxed max-w-sm mx-auto">
-          Allocation initiates a legal land ownership process, not an instant transfer.
+          Purchase initiates a legal land ownership process, not an instant transfer.
         </p>
       </div>
     </div>

@@ -7,11 +7,7 @@ export default function Account() {
 
   return (
     <div className="max-w-lg mx-auto">
-      <header className="p-6 pb-4">
-        <h1 className="text-2xl font-bold tracking-tight">Account</h1>
-      </header>
-
-      <section className="px-6">
+      <section className="px-6 pt-2">
         <div className="flex items-center gap-4 p-6 card mb-6">
           <div className="w-16 h-16 bg-surface-elevated border border-border flex items-center justify-center">
             <span className="text-2xl font-bold text-gold">I</span>

@@ -19,42 +19,45 @@
 
 ---
 
-## 1. Market (Default Landing)
+## 0. Global UX (Layout)
+
+- **Progress indicator (top):** Allocation → Ownership → Record (highlight current by route).
+- **Floating View Terms:** Fixed above bottom nav; link to /terms.
+
+---
+
+## 1. Allocation Board (Default Landing)
 
 ### Layout Structure
 
 ```
 ┌─────────────────────────────────────────┐
-│  [Status Bar]                           │
+│  Allocation → Ownership → Record        │
 ├─────────────────────────────────────────┤
-│  MARKET                                 │
+│  ALLOCATION BOARD                       │
 │                                         │
 │  ┌─────────────────────────────────┐   │
-│  │ [Allocation Header Card]        │   │
-│  │ Greenfield Layout · Phase 1     │   │
-│  │ Allocation in Progress          │   │
-│  │ 28 plots currently available    │   │
+│  │ Phase 1 · Status: Open           │   │
+│  │ Pre-Booking and direct alloc.    │   │
 │  └─────────────────────────────────┘   │
 │                                         │
-│  ████████████░░░░░░░░ [Gold Bar]       │
-│  Inventory updates in real time         │
-│                                         │
-│  [Size] [Price] [Facing] [Road] [Avail] │
-│                                         │
-│  ┌─────┐ ┌─────┐ ┌─────┐               │
-│  │ S14 │ │ N07 │ │ E22 │               │
-│  │ ... │ │ ... │ │ ... │               │
-│  └─────┘ └─────┘ └─────┘               │
-│  [Asset Grid]                           │
+│  [View Pre-Booking]  (primary CTA)      │
+│  [View Allocations]  (secondary CTA)    │
 │                                         │
 │  ┌─────────────────────────────────┐   │
-│  │ 3 plots were allocated today    │   │
+│  │ Current phase summary            │   │
+│  │ Plot discovery by region/area    │   │
 │  └─────────────────────────────────┘   │
 │                                         │
 ├─────────────────────────────────────────┤
+│  [View Terms] (floating)                 │
 │  [Market] [Portfolio] [Records] [Acct]  │
 └─────────────────────────────────────────┘
 ```
+
+---
+
+## 1b. Market (Legacy / Reference)
 
 ### Market Header States (3 Variants)
 
@@ -73,7 +76,27 @@
 
 ---
 
-## 2. Plot Detail (Asset Allocation Page)
+## 2. Pre-Booking Flow
+
+- **Pre-Booking Campaigns:** Cards with Region · Area, Layout/Phase, release window, benefits, status (Open / Closing Soon / Closed). CTA: Apply for Priority Allocation.
+- **Allocation Pool Overview:** Master layout map (blurred), info cards (total plots, size range, price band, EMI). CTA: Select Number of Plots.
+- **Allocation Request:** Plot count stepper (1–4). CTA: Continue.
+- **Confirm Priority Allocation:** Summary (campaign, region, area, plots requested, refund policy). Priority Allocation Fee. CTA: Confirm Priority Allocation.
+- **Priority Access Granted:** Star/glow visual, timeline (Applied → Awaiting Release → Plot Selection → Allocation → Ownership). CTA: View Campaign Status.
+
+---
+
+## 3. Normal Flow (Region → Area → Plot)
+
+- **Active Regions:** Cards with city name (Madurai, Chennai, Jaipur, etc.), phases summary, status (Open / Final Allocation). CTA: Enter Region.
+- **Areas in Region:** Cards with area name (Melur, Greenfield, OMR, etc.), phase, plot count, status. CTA: View Plots.
+- **Allocation Size:** Plot count stepper (1–4). Microcopy: multiple plots under single ownership. CTA: Continue.
+- **Plot List (Area):** Grid of plot cards (Plot number, size, price, status). Tap → Plot Detail. Breadcrumb: Region → Area.
+- **Plot Detail:** Title **Plot number · Area, Region** (e.g. M-22 · Melur, Madurai). Blueprint, metrics, trust snapshot. Sticky CTAs: Proceed to Allocation, Apply for EMI Allocation.
+
+---
+
+## 4. Plot Detail (Asset Allocation Page)
 
 ### Layout Structure
 
@@ -122,7 +145,7 @@
 
 ---
 
-## 3. Allocation Flow (4 Steps)
+## 5. Allocation Flow (Normal Booking)
 
 ### Step 1 — Allocation Summary
 
@@ -182,7 +205,23 @@
 
 ---
 
-## 4. Portfolio (Holdings Ledger)
+## 6. EMI Dashboard (Ownership Progress)
+
+- **Placement:** Route /portfolio/emi/:plotId (from Portfolio when EMI Active).
+- **Content:** Plot context **Plot number · Area, Region**. Circular progress ring (e.g. 6/24 payments). Timeline: Allocation → EMI Active → Registration Eligible → Ownership Complete. CTA: Make Payment.
+- **Ownership Completed:** When last payment processed. CTA: Customize Investor Star Frame → Star Frame flow.
+
+---
+
+## 7. Star Frame Flow (Reward)
+
+- **Create Your Investor Star Frame:** Recipient Name, Occasion (optional), Message, Plot Reference (auto-filled **Plot number · Area, Region**). Live preview (3D frame / door / plaque). CTA: Confirm Design.
+- **Delivery Details:** Options: Home delivery, Registry day handover. CTA: Confirm Delivery.
+- **Milestone Recorded:** Message: milestone added to records. CTA: View in Records.
+
+---
+
+## 8. Portfolio (Holdings Ledger)
 
 ### Layout Structure
 
@@ -224,7 +263,7 @@
 
 ---
 
-## 5. Records (Registry Room)
+## 9. Records (Registry Room)
 
 ### Layout Structure
 
@@ -264,7 +303,7 @@
 
 ---
 
-## 6. Account
+## 10. Account
 
 ### Layout Structure
 

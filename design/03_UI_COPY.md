@@ -18,38 +18,52 @@
 
 ---
 
-## Market
+## Global UX
 
-### Header Copy (3 States)
+- **Progress indicator:** Allocation → Ownership → Record (highlight current by route).
+- **Floating View Terms:** Label: "View Terms". Link to /terms.
 
-| State | Headline | Subheadline | Microcopy |
-|-------|----------|-------------|-----------|
-| Active | Greenfield Layout · Phase 1 | Allocation in Progress | 28 plots currently available |
-| Advanced | Greenfield Layout · Phase 1 | Allocation Advanced | Limited plots remaining |
-| Final | Greenfield Layout · Phase 1 | Final Allocation | Select plots still available |
+---
 
-### Allocation Bar
-- **Micro-line:** Inventory updates in real time
-- **Bar label:** (None — visual only)
+## Allocation Board (Entry)
 
-### Filter Chips
-- Size
-- Price
-- Facing
-- Road Access
-- Availability
+- **Screen title:** Allocation Board
+- **Banner:** Phase X · Status: Pre-Booking | Open | Final Allocation
+- **Microcopy:** Pre-Booking and direct allocation available across regions.
+- **Primary CTA:** View Pre-Booking
+- **Secondary CTA:** View Allocations
+- **Optional summary:** Current phase summary — Plot discovery is available by region and area. Use View Allocations to choose a city and area, then browse plots.
+
+---
+
+## Pre-Booking Flow
+
+- **Pre-Booking Campaigns:** Screen title: Pre-Booking Campaigns. Cards: Region · Area (e.g. Madurai · Melur), Layout/Phase, release window, benefits, status (Open / Closing Soon / Closed). CTA: Apply for Priority Allocation.
+- **Allocation Pool Overview:** Screen title: Allocation Pool Overview. Context: Region · Area. CTA: Select Number of Plots.
+- **Allocation Request:** Screen title: Allocation Request. Stepper 1–4. Microcopy: Priority allocation allows requesting multiple plots. Final assignment occurs on phase release. CTA: Continue.
+- **Confirm Priority Allocation:** Screen title: Confirm Priority Allocation. Summary: campaign, region, area, plots requested, refund policy, priority window. Priority Allocation Fee (non-refundable). CTA: Confirm Priority Allocation.
+- **Priority Access Granted:** Screen title: Priority Access Granted. Message: You're now part of Phase X allocation. You'll be notified when plot selection opens. Timeline: Applied → Awaiting Release → Plot Selection → Allocation → Ownership. CTA: View Campaign Status.
+
+---
+
+## Normal Flow (Region → Area → Plot)
+
+- **Active Regions:** Screen title: Active Regions. Subhead: Select a city to view areas and plots. Cards: Region (city) name, phases summary, status (Open / Final Allocation). CTA: Enter Region.
+- **Areas in Region:** Screen title: Areas in [Region name]. Cards: Area name, phase, plot count, status. CTA: View Plots.
+- **Allocation Size:** Screen title: Allocation Size. Stepper 1–4. Microcopy: Multiple plots can be managed under a single ownership record. CTA: Continue.
+- **Plot List:** Screen title: Plots. Breadcrumb: Region · Area. Cards: Plot number, size, price, status (Open / High Interest). Tap → Plot Detail.
+- **Plot context (all screens):** Use **Plot number · Area, Region** (e.g. M-22 · Melur, Madurai) consistently.
+
+---
+
+## Market (Reference)
 
 ### Plot Card Copy
-- **Plot ID:** S14, N07, E22 (ticker-style)
+- **Plot ID:** M-22, S14, N07 (with context: Plot number · Area, Region)
 - **Size:** 1200 sqft
 - **Price:** ₹18,50,000
 - **EMI line:** EMI from ₹12,400/month
 - **Status chips:** Open | High Interest | Allocated
-
-### Market Signals (Whisper Cards)
-- "3 plots were allocated today"
-- "Road-facing plots are seeing higher interest"
-- "Phase 1 nearing full allocation"
 
 ---
 
@@ -90,27 +104,26 @@
 
 ---
 
-## Allocation Flow (4 Steps)
+## Allocation Flow (Normal Booking)
 
-### Step 1 — Allocation Summary
-- **Screen title:** Allocation Summary
-- **Progress:** Step 1 of 4
-- **Labels:** Plot ID | Total price | EMI or Full Payment | Advance amount | Legal charges
+### Step 1 — Ownership Path (optional if chosen from Plot Detail)
+- **Screen title:** Ownership Path
+- **Cards:** Full Allocation (Immediate registration process) | EMI Allocation (Monthly ownership progression)
 - **CTA:** Continue
 
-### Step 2 — Intent Confirmation
-- **Screen title:** Intent Confirmation
-- **Progress:** Step 2 of 4
+### Step 2 — Confirm Allocation
+- **Screen title:** Confirm Allocation
+- **Labels:** Plot(s) with Region · Area · Plot number | Total cost | EMI (if EMI) | Legal charges | Registration fees
 - **Checkbox:** "I understand this is a legal land allocation and registration process."
-- **CTA:** Confirm & Continue
+- **CTA:** Complete Allocation
 
 ### Step 3 — Payment
 - **Screen title:** Payment
-- **Progress:** Step 3 of 4
 - **CTA:** Proceed to Payment
 
-### Step 4 — Allocation Confirmed
-- **Success line:** "Plot S14 has been allocated to your portfolio."
+### Step 4 — Allocation Successful
+- **Success line:** "Plot [Plot number] ([Area], [Region]) is now part of your portfolio."
+- **Next steps:** KYC Verification → Agreement Signing → Registration Scheduling → Ownership Completion
 - **CTA:** View in Portfolio
 
 ---
@@ -122,10 +135,11 @@
 - **Subhead:** "Your Asset Holdings"
 
 ### Plot Card Labels
-- **Plot ID:** S14
+- **Plot context:** Plot number · Area, Region (e.g. M-22 · Melur, Madurai)
 - **Status chips:** Reserved | EMI Active | Registered | Ownership Complete
 - **Completion:** 95% complete · EMI Active
 - **Ownership type:** Full Payment | EMI Active
+- **EMI Active:** Link to EMI Dashboard — "View progress →"
 
 ### Empty State
 - "No allocations yet"
@@ -147,6 +161,18 @@
 - Registration Proof
 - Digital Certificates
 - Physical Collectibles Tracking
+
+### EMI Dashboard (Ownership Progress)
+- **Screen title:** Ownership Progress
+- **Plot context:** Plot number · Area, Region
+- **Content:** Circular progress (e.g. 6/24 payments), timeline: Allocation → EMI Active → Registration Eligible → Ownership Complete
+- **CTA:** Make Payment
+- **Ownership Completed:** Screen title: Ownership Completed. Message: Your plot is now fully registered and verified. CTA: Customize Investor Star Frame
+
+### Star Frame Flow
+- **Create Your Investor Star Frame:** Recipient Name, Occasion (optional), Message, Plot Reference (auto-filled **Plot number · Area, Region**). Live preview (3D frame / door / plaque). CTA: Confirm Design.
+- **Delivery Details:** Options: Home delivery, Registry day handover. CTA: Confirm Delivery.
+- **Milestone Recorded:** Message: This ownership milestone has been added to your records. CTA: View in Records.
 
 ### Digital Certificates (Unlock Labels)
 - Investor Star Frame

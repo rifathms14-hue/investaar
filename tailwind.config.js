@@ -7,7 +7,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        sans: ['Figtree', 'sans-serif'],
+        serif: ['Figtree', 'sans-serif'],
+        mono: ['Figtree', 'sans-serif'],
       },
       colors: {
         base: '#0D0D0D',

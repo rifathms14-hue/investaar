@@ -75,28 +75,116 @@
 
 ---
 
-## 4. Allocation Flow State Machine
+## 4. Allocation Flow State Machine (Normal Booking)
 
 ```
 ┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
 │ Step 1       │    │ Step 2       │    │ Step 3       │    │ Step 4       │
-│ Summary      │───▶│ Intent       │───▶│ Payment      │───▶│ Confirmed    │
-│              │    │ Confirmation │    │              │    │              │
+│ Ownership    │───▶│ Confirm      │───▶│ Payment      │───▶│ Allocation   │
+│ Path         │    │ Allocation   │    │              │    │ Successful   │
+│ (Full/EMI)   │    │ (summary)    │    │              │    │              │
 └──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
        │                    │                    │                    │
-       │◀───────────────────┘                    │                    │
-       │              Back                       │                    │
-       └─────────────────────────────────────────┘                    │
-                         Back                                          │
-                                                                       │
-                                                                       ▼
-                                                              [View in Portfolio]
+       │ (skipped if        │◀───────────────────┘                    │
+       │  from Plot Detail  │              Back                       │
+       │  with type)       │                    │                    │
+       └──────────────────▶│                    │                    │
+                            │                    │                    ▼
+                            │                    │             [View in Portfolio]
+                            │ Checkbox required  │
+                            └───────────────────┘
 ```
 
 **Rules:**
-- Step 2: Checkbox must be checked to proceed
-- Step 3: Payment method must be selected
-- Step 4: Terminal state → CTA to Portfolio
+- Step 1 (Ownership Path): Optional — skipped when user came from Plot Detail with Proceed to Allocation or Apply for EMI Allocation.
+- Step 2: Checkbox must be checked to proceed.
+- Step 3: Payment method selection.
+- Step 4: Terminal state → CTA to Portfolio; next steps: KYC → Agreement → Registration → Ownership Completion.
+
+---
+
+## 4b. Pre-Booking Flow State Machine
+
+```
+┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│ Campaigns    │───▶│ Pool         │───▶│ Request      │───▶│ Confirm      │───▶│ Priority     │
+│ (Region+Area)│    │ Overview     │    │ (plot count) │    │ (payment)    │    │ Access       │
+└──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘    │ Granted      │
+                                                                                  └──────────────┘
+                                                                                         │
+                                                                                         ▼
+                                                                                  [View Campaign Status]
+```
+
+**Rules:**
+- Campaigns: Cards show Region · Area, status (Open / Closing Soon / Closed). CTA: Apply for Priority Allocation.
+- Pool: Master layout map, info cards. CTA: Select Number of Plots.
+- Request: Stepper 1–4 plots. CTA: Continue.
+- Confirm: Summary + Priority Allocation Fee. CTA: Confirm Priority Allocation.
+- Priority Access Granted: Timeline (Applied → Awaiting Release → Plot Selection → Allocation → Ownership). CTA: View Campaign Status.
+
+---
+
+## 4c. Normal Flow (Region → Area → Plot) State Machine
+
+```
+┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│ Active       │───▶│ Areas in     │───▶│ Allocation   │───▶│ Plot List    │───▶│ Plot Detail  │
+│ Regions      │    │ Region       │    │ Size         │    │ (by area)    │    │ (Plot·Area,   │
+│ (cities)     │    │              │    │ (1–4 plots)  │    │              │    │  Region)      │
+└──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘    └──────────────┘
+                                                                                         │
+                                                                                         ├─ Proceed to Allocation ──▶ Allocation Flow (type=full)
+                                                                                         └─ Apply for EMI Allocation ──▶ Allocation Flow (type=emi)
+```
+
+**Rules:**
+- Plot context displayed as **Plot number · Area, Region** (e.g. M-22 · Melur, Madurai) on Plot Detail, Portfolio, Records, Star Frame.
+- Back navigation preserves Region → Area → Plot breadcrumb when using composite route.
+
+---
+
+## 4d. EMI Dashboard & Ownership Complete State Machine
+
+```
+┌──────────────┐    ┌──────────────┐
+│ EMI          │───▶│ Ownership    │
+│ Dashboard    │    │ Completed    │
+│ (progress    │    │ (last payment│
+│  ring, Make  │    │  processed)  │
+│  Payment)    │    │              │
+└──────────────┘    └──────────────┘
+       │                    │
+       │                    ▼
+       │             [Customize Investor Star Frame]
+       │
+       └─ Make Payment (placeholder)
+```
+
+**Rules:**
+- EMI Dashboard: Route /portfolio/emi/:plotId. Plot context: Plot number · Area, Region. Timeline: Allocation → EMI Active → Registration Eligible → Ownership Complete.
+- Ownership Completed: When payments completed (e.g. 24/24). CTA: Customize Investor Star Frame → Star Frame flow.
+
+---
+
+## 4e. Star Frame Flow State Machine
+
+```
+┌──────────────┐    ┌──────────────┐    ┌──────────────┐
+│ Customize    │───▶│ Delivery     │───▶│ Milestone    │
+│ (recipient,  │    │ Details      │    │ Recorded     │
+│  message,    │    │ (home/       │    │              │
+│  plot ref)   │    │  registry)   │    │              │
+└──────────────┘    └──────────────┘    └──────────────┘
+                                                    │
+                                                    ▼
+                                             [View in Records]
+```
+
+**Rules:**
+- Customize: Recipient Name, Occasion (optional), Message, Plot Reference (auto-filled **Plot number · Area, Region**). Live preview. CTA: Confirm Design.
+- Delivery: Home delivery | Registry day handover. CTA: Confirm Delivery.
+- Milestone Recorded: Terminal state. CTA: View in Records.
 
 ---
 
@@ -128,33 +216,34 @@
 ## 6. User Journey Interaction Logic
 
 ```
-ENTRY: Market (default)
+ENTRY: Allocation Board (default)
    │
-   ├─ Tap Plot Card ──────────────────────▶ Plot Detail
+   ├─ View Pre-Booking ───────────────────▶ Pre-Booking Campaigns
    │
-   ├─ Tap Filter Chip ────────────────────▶ Filter Asset Grid (in-place)
-   │
-   └─ Tap Market Signal ──────────────────▶ (Optional: scroll to relevant plots)
+   └─ View Allocations ───────────────────▶ Active Regions (cities)
 ```
 
 ```
-Plot Detail
-   │
-   ├─ Tap "Proceed to Allocation (Full)" ──▶ Allocation Flow (Step 1)
-   │
-   ├─ Tap "Apply for EMI Allocation" ──────▶ EMI Application Flow
-   │
-   ├─ Tap Blueprint Tab ───────────────────▶ Switch blueprint view
-   │
-   └─ Back ────────────────────────────────▶ Market
+Pre-Booking: Campaigns → Pool → Request (plot count) → Confirm (payment) → Priority Access Granted
+   └─ View Campaign Status ─────────────────▶ Pre-Booking Campaigns
 ```
 
 ```
-Allocation Flow
+Normal: Active Regions → Areas in Region → Allocation Size → Plot List → Plot Detail
    │
-   ├─ Step 1 Continue ─────────────────────▶ Step 2
-   ├─ Step 2 Confirm & Continue ───────────▶ Step 3
-   ├─ Step 3 Proceed to Payment ───────────▶ Step 4 (on success)
+   └─ Plot Detail
+        ├─ Proceed to Allocation ──────────▶ Allocation Flow (state: purchaseType=full, regionId, areaId)
+        ├─ Apply for EMI Allocation ───────▶ Allocation Flow (state: purchaseType=emi, regionId, areaId)
+        ├─ Tap Blueprint Tab ───────────────▶ Switch blueprint view
+        └─ Back ───────────────────────────▶ Plot List (or Allocation Board if direct /plot/:id)
+```
+
+```
+Allocation Flow (Normal Booking)
+   │
+   ├─ Step 1 (Ownership Path) Continue ────▶ Step 2 (skipped if purchaseType in state)
+   ├─ Step 2 Confirm (checkbox) ───────────▶ Step 3
+   ├─ Step 3 Proceed to Payment ───────────▶ Step 4 (Allocation Successful)
    ├─ Back (any step) ─────────────────────▶ Previous step or Plot Detail
    └─ Step 4 View in Portfolio ────────────▶ Portfolio
 ```
@@ -162,7 +251,21 @@ Allocation Flow
 ```
 Portfolio
    │
-   └─ Tap Plot Card ───────────────────────▶ Asset Page (ownership details)
+   ├─ Tap EMI Active plot card ─────────────▶ EMI Dashboard (/portfolio/emi/:plotId)
+   └─ Tap other plot card ─────────────────▶ Asset Page (ownership details)
+```
+
+```
+EMI Dashboard
+   │
+   ├─ Make Payment ────────────────────────▶ (placeholder)
+   ├─ Simulate completion (demo) ──────────▶ Ownership Completed
+   └─ Ownership Completed: Customize Investor Star Frame ──▶ Star Frame Customize
+```
+
+```
+Star Frame: Customize → Delivery Details → Milestone Recorded
+   └─ View in Records ─────────────────────▶ Records
 ```
 
 ```
@@ -170,6 +273,10 @@ Records
    │
    ├─ Tap Plot (if multiple) ──────────────▶ Filter by plot
    └─ Tap Document ────────────────────────▶ View document (read-only)
+```
+
+```
+Global: View Terms (floating) ──────────────▶ /terms
 ```
 
 ---
