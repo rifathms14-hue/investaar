@@ -1,6 +1,6 @@
 # Rushta brand
 
-Logo system, brand context and identity brief for Rushta (روشتة), the prescription workflow for clinics, pharmacies, patients and medical reps.
+Logo system, brand context and identity brief for Rushta (روشتة), the prescription workflow that connects doctors, patients, the pharmacy and the clinic.
 
 Open `rushta-brand-guidelines.html` in a browser for the full guidelines. It is a single file with no dependencies.
 

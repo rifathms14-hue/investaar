@@ -4,17 +4,17 @@ Built from `brand-context.md` and the logo system in `logo/`. Hex values and mea
 
 ## 01 Identity strategy statement
 
-Rushta handles medical records, so the identity has to look careful before it looks friendly. The mark is a medical cross that has been turned into a pinwheel. That turn is the product: a prescription goes out from the doctor and comes back as a record. Everything else stays quiet. Flat colour, no gradients, one typeface family per script, and generous space. The design should feel like a well-kept clinic, not a health-tech startup.
+Rushta handles medical records, so the identity has to look careful before it looks friendly. The mark is four sheets of paper coming together to form a medical cross. Each sheet is one of the four parties on a prescription: doctors, patients, the pharmacy and the clinic. They meet at a single point, and that is the idea of the product. Everything else stays quiet. Flat colour, no gradients, one typeface family per script, and generous space. The design should feel like a well-kept clinic, not a health-tech startup.
 
 ## 02 Logo direction
 
 **Primary direction.** Symbol plus a bilingual wordmark. Arabic sits above English, both justified to the same width and set in one colour, with the mark on the left. A stacked version exists for square spaces. The mark works alone from 24 px up.
 
-**Character.** Calm, exact, local. The sharp tips of the pinwheel are the only hard edge. Every other corner is rounded.
+**Character.** Calm, exact, local. Corners are soft like the edges of paper. The tip where each sheet folds in is the only hard edge.
 
 **Style notes.** Constructed, not drawn. All spacing comes from one unit, `u`, which is the mark height divided by eight. The mark sits 2u from the text. The text block is 8.5u wide, with the Arabic and English words flush on both edges. The gap between the Arabic descender and the English cap top is three quarters of a unit. Clear space is 2u. Straight edges in the mark are true horizontal and vertical lines.
 
-**What to avoid.** The caduceus, the Rx glyph, pills, hearts, heartbeat lines and stethoscopes. A green cross on its own, because every pharmacy in the region already owns that signal. The twist is what makes this mark yours, so never flatten it back into a plain plus.
+**What to avoid.** The caduceus, the Rx glyph, pills, hearts, heartbeat lines and stethoscopes. A green cross on its own, because every pharmacy in the region already owns that signal. The folded sheets are what make this mark yours, so never flatten it back into a plain plus.
 
 **Three logo references.**
 - **Uber (2018 system).** Borrow the discipline: clear space equals one letter's cap height, and lockups align on cap height and baseline. Nothing is left to taste.
@@ -87,7 +87,7 @@ Arabic needs more room than Latin. Add about 10 percent to Arabic line height, a
 
 ## 07 Design principles
 
-**One record, always in view.** The product is a loop from signature to last item collected. Screens should show where a prescription is in that loop at a glance.
+**One point, four parties.** Doctors, patients, the pharmacy and the clinic are connected at a single point: the prescription. Screens should show where a prescription stands for whoever is looking, at a glance.
 
 **Boundaries are visible.** Each role sees only its own world. Empty states should say what is hidden and why, in plain words, instead of showing a blank.
 

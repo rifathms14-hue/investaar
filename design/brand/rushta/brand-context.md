@@ -5,12 +5,12 @@ Source: Rushta for GlowRx proposal (Munjze.com, October 2026), plus the logo wor
 ## Brand
 - **Name**: Rushta (روشتة). The Arabic word for a prescription.
 - **Category**: Healthcare software. Prescription workflow.
-- **Description**: A connected prescription workflow that puts doctors, patients, pharmacies and medical representatives on one record.
+- **Description**: A connected prescription workflow that connects doctors, patients, the pharmacy and the clinic at a single point.
 - **Stage**: Pre-launch. The first release is one clinic and one associated pharmacy, three weeks from start to go-live.
 - **Website**: N/A. A live prototype exists for scope only, and its look is not confirmed.
 
 ## Audience
-- **Primary Audience**: The clinic is the buyer. Doctors, pharmacists and the clinic admin use it every day. Patients and medical reps touch it at the edges. Patients install nothing and open a link. Reps see products and orders only.
+- **Primary Audience**: The clinic is the buyer. Doctors, pharmacists and the clinic admin use it every day. Patients touch it at the edge: they install nothing and open a link. Medical reps have a limited role, seeing products and orders only. They are not one of the four parties in the mark.
 - **Key Problem**: A prescription leaves the clinic and the doctor loses sight of it. Rushta keeps one record from the doctor's signature to the last item collected. This is read from the proposal's prescription loop, so confirm it with the client.
 - **Their Language**: Prescription. Collect. Dispense. Clinic pad. Rx number. QR. Partly collected. Arabic is the default language for patients, and every screen runs right to left.
 
@@ -18,6 +18,11 @@ Source: Rushta for GlowRx proposal (Munjze.com, October 2026), plus the logo wor
 - **Differentiation**: One QR code works for partial collections until every item is given. The doctor can follow a prescription to the last item. There is no AI and no handwriting recognition, so images and handwriting are stored and shown, never read. It runs in the browser with nothing to install. Patient data is hosted in Saudi Arabia. Each role sees only what it needs, and reps never see a patient, doctor or prescription.
 - **Competitors**: To confirm. Wasfaty (the national e-prescription system) sits next to this product. The first release does not connect to it.
 - **Market Position**: To confirm. The product is sold clinic by clinic.
+
+## The mark
+- **Story**: Four sheets of paper come together to form a medical cross. Each sheet is one of the four parties: doctors, patients, the pharmacy and the clinic. They meet at a single point, so all four are connected there.
+- **Source**: Given by the founder. It supersedes an earlier reading of the mark as a loop with medical reps as the fourth party.
+- **Which sheet is which party**: Not decided. The brand sheet places them clockwise from the top in the order doctors, patients, pharmacy, clinic as a placeholder.
 
 ## Brand Personality
 - **Personality Words**: Careful, plain, exact, local, accountable. Proposed from the way the proposal is written. To confirm.
