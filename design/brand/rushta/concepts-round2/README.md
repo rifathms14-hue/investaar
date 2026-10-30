@@ -12,3 +12,7 @@ Four mark directions from the nuqta, bilingual monogram, pen-cut dot and square 
 `concepts.py` holds the geometry. `concepts-board.png` is the overview.
 
 These are first constructions. Nothing here is snapped to the golden ladder yet. That comes after you pick.
+
+## Twin r (added after feedback)
+
+`twin-r/` and `twin-r-board.png`. The Latin r and the Arabic reh are the same letter turned 180 degrees. One module with pen-cut ends is used twice, dark for r and green for ر. The first four concepts above were judged weak and are kept only for the record.

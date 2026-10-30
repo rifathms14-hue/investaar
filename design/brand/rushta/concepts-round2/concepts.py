@@ -134,3 +134,17 @@ def layers(name):
     col = [(k, to_cmds(g)) for k in ("dark", "mid", "light") for g in parts.get(k, [])]
     mono = [("sil", c) for _, c in col]
     return col, mono
+
+
+# E. twin: a geometric Latin r and the Arabic reh are the same letter turned 180 degrees
+def twin():
+    S, Ro, t, stem, arm = 100.0, 46.0, 24.0, 72.0, 72.0
+    ring = circle((Ro, Ro), Ro).difference(circle((Ro, Ro), Ro - t)).intersection(box(0, 0, Ro, Ro))
+    st = Polygon([(0, Ro), (t, Ro), (t, stem - t), (0, stem)])
+    ar = Polygon([(Ro, 0), (arm, 0), (arm - t, t), (Ro, t)])
+    A = unary_union([ring, st, ar])
+    B = affinity.rotate(A, 180, origin=(S / 2, S / 2))
+    return {"dark": [A], "mid": [B]}
+
+
+CONCEPTS["twin"] = twin
