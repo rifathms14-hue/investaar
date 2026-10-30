@@ -19,7 +19,7 @@
 
   var S = {
     en: {
-      proto: 'Prototype', pharmacy: 'Pharmacy', rx_n: 'prescriptions', viewas: 'View as', patient: 'Patient', clinic: 'Clinic', gm: 'Good morning', nav_home: 'Home', nav_rx: 'Prescriptions', nav_ph: 'Pharmacies', nav_me: 'Profile', nav_dash: 'Dashboard', nav_q: 'Queue', nav_new: 'New',
+      proto: 'Prototype', rem_h: 'Reminders', rem_pick: 'Pickup reminders', rem_refill: 'Refill reminders', slots_n: 'slots', pharmacy: 'Pharmacy', rx_n: 'prescriptions', viewas: 'View as', patient: 'Patient', clinic: 'Clinic', gm: 'Good morning', nav_home: 'Home', nav_rx: 'Prescriptions', nav_ph: 'Pharmacies', nav_me: 'Profile', nav_dash: 'Dashboard', nav_q: 'Queue', nav_new: 'New',
       hl1: 'Your medicine is', hl2: 'ready', hl3: 'at', hl4: 'Al Noor Pharmacy', upd: 'Prescription update', show: 'Show pickup code', share: 'Share link', copied: 'Link copied', copy_fail: 'Link: rushta.example/r/',
       active: 'Active', ready_n: 'Ready to collect', issued: 'Issued', sent: 'Sent', ready: 'Ready', collected: 'Collected', preparing: 'Preparing', collect_by: 'Collect by Sat 18 May',
       near: 'Pharmacies near you', all: 'See all', rxs: 'Prescriptions', past: 'Past', shared: 'Shared with me', none_shared: 'Nothing shared with you yet', none_shared_s: 'When a doctor or family member shares a prescription, it shows up here.',
@@ -32,7 +32,7 @@
       saved: 'Draft saved', sent_t: 'Prescription sent', sent_s: 'Al Noor Pharmacy has it now. The patient gets a pickup code when it is ready.', back_dash: 'Back to dashboard', another: 'Write another', pharm_set: 'Pharmacy updated', slot_pick: 'Choose a time to reserve.'
     },
     ar: {
-      proto: 'نموذج تجريبي', pharmacy: 'الصيدلية', rx_n: 'وصفات', viewas: 'العرض كـ', patient: 'مريض', clinic: 'عيادة', gm: 'صباح الخير', nav_home: 'الرئيسية', nav_rx: 'الوصفات', nav_ph: 'الصيدليات', nav_me: 'حسابي', nav_dash: 'اللوحة', nav_q: 'الطابور', nav_new: 'جديدة',
+      proto: 'نموذج تجريبي', rem_h: 'التذكيرات', rem_pick: 'تذكير الاستلام', rem_refill: 'تذكير إعادة الصرف', slots_n: 'مواعيد', pharmacy: 'الصيدلية', rx_n: 'وصفات', viewas: 'العرض كـ', patient: 'مريض', clinic: 'عيادة', gm: 'صباح الخير', nav_home: 'الرئيسية', nav_rx: 'الوصفات', nav_ph: 'الصيدليات', nav_me: 'حسابي', nav_dash: 'اللوحة', nav_q: 'الطابور', nav_new: 'جديدة',
       hl1: 'وصفتك', hl2: 'جاهزة', hl3: 'في', hl4: 'صيدلية النور', upd: 'تحديث الوصفة', show: 'اعرض رمز الاستلام', share: 'شارك الرابط', copied: 'تم نسخ الرابط', copy_fail: 'الرابط: rushta.example/r/',
       active: 'نشطة', ready_n: 'جاهزة للاستلام', issued: 'صدرت', sent: 'أُرسلت', ready: 'جاهزة', collected: 'تم الاستلام', preparing: 'قيد التجهيز', collect_by: 'استلمها قبل السبت 18 مايو',
       near: 'صيدليات قريبة منك', all: 'عرض الكل', rxs: 'الوصفات', past: 'سابقة', shared: 'مشاركة معي', none_shared: 'لا توجد وصفات مشاركة معك', none_shared_s: 'عندما يشارك طبيب أو أحد أفراد العائلة وصفة معك ستظهر هنا.',
@@ -59,10 +59,11 @@
       { id: 'rx2', med: 'metf', doc: 'sara', ph: 'p2', qty: { en: '60 tablets', ar: '60 قرصًا' }, st: 'preparing', stage: 2, price: 'SAR 22', code: 'RS-20397', issued: { en: 'Mon 13 May', ar: 'الاثنين 13 مايو' }, valid: { en: '27 May', ar: '27 مايو' }, group: 'active' },
       { id: 'rx3', med: 'ibu', doc: 'omar', ph: 'p3', qty: { en: '20 tablets', ar: '20 قرصًا' }, st: 'collected', stage: 4, price: 'SAR 14', code: 'RS-20102', issued: { en: 'Thu 2 May', ar: 'الخميس 2 مايو' }, valid: { en: '9 May', ar: '9 مايو' }, group: 'past' }
     ],
+    days: [{ id: 'd13', n: 13, dow: { en: 'Tue', ar: 'الثلاثاء' }, full: { en: 'Tuesday', ar: 'الثلاثاء' }, s: 3 }, { id: 'd14', n: 14, dow: { en: 'Wed', ar: 'الأربعاء' }, full: { en: 'Wednesday', ar: 'الأربعاء' }, s: 4 }, { id: 'd15', n: 15, dow: { en: 'Thu', ar: 'الخميس' }, full: { en: 'Thursday', ar: 'الخميس' }, s: 4 }, { id: 'd16', n: 16, dow: { en: 'Fri', ar: 'الجمعة' }, full: { en: 'Friday', ar: 'الجمعة' }, s: 2 }],
     slots: [['08:00', 1], ['09:40', 1], ['10:00', 1], ['11:50', 1], ['12:30', 0], ['17:40', 0]]
   };
 
-  var st = { lang: 'en', role: 'patient', route: 'home', rx: 'rx1', slot: '', reserved: '', filter: 'active', ph: 'p1', phq: '', phf: '', sheet: '', toast: '', qf: 'ready', scan: '', scanRes: '',
+  var st = { day: 'd14', tg: { pick: true, refill: false }, lang: 'en', role: 'patient', route: 'home', rx: 'rx1', slot: '', reserved: '', filter: 'active', ph: 'p1', phq: '', phf: '', sheet: '', toast: '', qf: 'ready', scan: '', scanRes: '',
     count: 128, recent: [{ p: 'p2', m: 'metf', s: 'ready' }, { p: 'p1', m: 'amox', s: 'preparing' }],
     form: { patient: 'p3', med: '', dose: '', days: 7, time: 'morning', notes: '', err: false } };
   try { var sv = JSON.parse(localStorage.getItem('rushta-proto') || '{}'); if (sv.lang) st.lang = sv.lang; if (sv.role) { st.role = sv.role; st.route = sv.role === 'clinic' ? 'dash' : 'home'; } } catch (e) {}
@@ -105,8 +106,8 @@
     }).join('');
   }
   function rxList() {
-    var h = '<h1 class="title">' + t('rxs') + '</h1><div class="chips">';
-    [['active', 'active'], ['past', 'past'], ['shared', 'shared']].forEach(function (f) { h += '<button class="chip" data-act="filter" data-v="' + f[0] + '" aria-pressed="' + (st.filter === f[0]) + '">' + t(f[1]) + '</button>'; });
+    var h = '<h1 class="title">' + t('rxs') + '</h1><div class="segm" role="group">';
+    [['active', 'active'], ['past', 'past'], ['shared', 'shared']].forEach(function (f) { h += '<button data-act="filter" data-v="' + f[0] + '" aria-pressed="' + (st.filter === f[0]) + '">' + t(f[1]) + '</button>'; });
     h += '</div><div class="stack mt">';
     var list = D.rx.filter(function (r) { return r.group === st.filter; });
     if (!list.length) h += '<div class="empty"><b>' + t('none_shared') + '</b>' + t('none_shared_s') + '</div>';
@@ -122,7 +123,10 @@
     h += '<div class="card mt">' + steps(r.stage) + '</div>';
     h += '<div class="sec-h" style="margin-top:24px"><h2>' + t('details') + '</h2></div><div class="tiles"><div class="tile">' + ic('box', 22) + '<b>' + L(r.qty) + '</b><span>' + t('qty') + '</span></div><div class="tile">' + ic('case', 22) + '<b>' + L(D.docs[r.doc]) + '</b><span>' + t('doctor') + '</span></div><div class="tile">' + ic('clock', 22) + '<b>' + L(r.valid) + '</b><span>' + t('valid') + '</span></div></div>';
     if (r.st === 'ready') {
-      h += '<div class="sec-h"><h2>' + t('pickup') + '</h2></div><div class="card"><div style="display:flex;justify-content:space-between;align-items:center;font-weight:500"><span>' + (st.lang === 'ar' ? 'الأربعاء، 14 مايو' : 'Wednesday, 14 May') + '</span>' + ic('cal', 20) + '</div><div class="chips" style="flex-wrap:wrap;overflow:visible;margin-top:14px">';
+      var dy = D.days.filter(function (d) { return d.id === st.day; })[0];
+      h += '<div class="sec-h"><h2>' + t('pickup') + '</h2></div><div class="card"><div class="days" role="group">';
+      D.days.forEach(function (d) { h += '<button class="day" data-act="day" data-v="' + d.id + '" aria-pressed="' + (st.day === d.id) + '"><small>' + L(d.dow) + '</small><b>' + d.n + '</b><i>' + d.s + ' ' + t('slots_n') + '</i></button>'; });
+      h += '</div><div class="chips" style="flex-wrap:wrap;overflow:visible;margin-top:18px">';
       D.slots.forEach(function (s) { h += '<button class="chip slot" data-act="slot" data-v="' + s[0] + '" aria-pressed="' + (st.slot === s[0]) + '"' + (s[1] ? '' : ' disabled') + '>' + s[0] + '</button>'; });
       h += '</div>' + (st.reserved ? '<p class="eyebrow" style="margin:14px 0 0">' + t('reserved') + ' ' + st.reserved + '</p>' : '') + '</div>';
       h += '<div class="row2 mt2">' + (st.reserved ? '<button class="btn p f2" data-act="code">' + t('show') + '</button>' : '<button class="btn p f2" data-act="reserve">' + t('reserve') + '</button>') + '<button class="cb" style="width:52px;height:52px" data-act="share" aria-label="' + t('share') + '">' + ic('chat', 21) + '</button></div>';
@@ -152,6 +156,7 @@
     var h = '<h1 class="title">' + t('nav_me') + '</h1><div class="card" style="display:flex;align-items:center;gap:14px"><div class="av" style="width:56px;height:56px;font-size:20px">' + (st.role === 'patient' ? (st.lang === 'ar' ? 'ن' : 'N') : 'SH') + '</div><div><b style="font-size:18px">' + (st.role === 'patient' ? (st.lang === 'ar' ? 'نورة القحطاني' : 'Noura Al-Qahtani') : (st.lang === 'ar' ? 'د. سارة حمدان' : 'Dr. Sara Hamdan')) + '</b><div class="eyebrow">' + (st.role === 'patient' ? t('my_ph') + ': ' + L(D.ph[st.ph].n) : 'Al Noor Clinic') + '</div></div></div>';
     h += '<span class="lab">' + t('lang') + '</span><div class="row2"><button class="chip" style="flex:1;justify-content:center" data-act="lang" data-v="en" aria-pressed="' + (st.lang === 'en') + '">English</button><button class="chip" style="flex:1;justify-content:center" data-act="lang" data-v="ar" aria-pressed="' + (st.lang === 'ar') + '">العربية</button></div>';
     h += '<span class="lab">' + t('viewas') + '</span><div class="row2"><button class="chip" style="flex:1;justify-content:center" data-act="role" data-v="patient" aria-pressed="' + (st.role === 'patient') + '">' + t('patient') + '</button><button class="chip" style="flex:1;justify-content:center" data-act="role" data-v="clinic" aria-pressed="' + (st.role === 'clinic') + '">' + t('clinic') + '</button></div>';
+    h += '<span class="lab">' + t('rem_h') + '</span><div class="card" style="padding:8px 18px"><div class="setrow"><b>' + t('rem_pick') + '</b><button class="sw" role="switch" aria-label="' + t('rem_pick') + '" aria-checked="' + st.tg.pick + '" data-act="tg" data-v="pick"></button></div><div class="setrow"><b>' + t('rem_refill') + '</b><button class="sw" role="switch" aria-label="' + t('rem_refill') + '" aria-checked="' + st.tg.refill + '" data-act="tg" data-v="refill"></button></div></div>';
     return h + '<p class="eyebrow" style="margin-top:26px">' + t('note') + '</p>';
   }
 
@@ -258,7 +263,9 @@
     if (act === 'role') { st.role = v; st.route = v === 'clinic' ? 'dash' : 'home'; st.sheet = ''; save(); return render(); }
     if (act === 'filter') { st.filter = v; return render(true); }
     if (act === 'slot') { st.slot = v; return render(true); }
-    if (act === 'reserve') { if (!st.slot) { toast(t('slot_pick')); return render(true); } st.reserved = st.slot + (st.lang === 'ar' ? ' يوم الأربعاء' : ' on Wed 14 May'); toast(t('reserved') + ' ' + st.slot); return render(true); }
+    if (act === 'day') { st.day = v; st.slot = ''; st.reserved = ''; return render(true); }
+    if (act === 'tg') { st.tg[v] = !st.tg[v]; return render(true); }
+    if (act === 'reserve') { if (!st.slot) { toast(t('slot_pick')); return render(true); } var dd = D.days.filter(function (d) { return d.id === st.day; })[0]; st.reserved = st.slot + (st.lang === 'ar' ? ' يوم ' + L(dd.full) + ' ' + dd.n + ' مايو' : ' on ' + L(dd.dow) + ' ' + dd.n + ' May'); toast(t('reserved') + ' ' + st.slot); return render(true); }
     if (act === 'code') { st.sheet = 'code'; return render(true); }
     if (act === 'share') return copy();
     if (act === 'phf') { st.phf = st.phf === v ? '' : v; return render(true); }
