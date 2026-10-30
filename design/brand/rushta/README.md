@@ -1,28 +1,56 @@
-# Rushta lockup
+# Rushta brand
 
-| File | What it is |
+Logo system, brand context and identity brief for Rushta (روشتة), the prescription workflow for clinics, pharmacies, patients and medical reps.
+
+Open `rushta-brand-guidelines.html` in a browser for the full guidelines. It is a single file with no dependencies.
+
+## What is here
+
+| Path | What |
 | --- | --- |
-| `rushta-lockup.svg` / `.png` | Mark, Arabic (Madani Arabic Medium) and English (Satoshi Bold, default `t`). All text is outlined. |
-| `rushta-lockup-hooked-t.svg` / `.png` | Same lockup using Satoshi's `t.ss03` alternate, so the English `t` has a hooked foot and cannot be misread as an `f`. |
-| `rushta-mark.svg` | The pinwheel cross on its own. |
+| `rushta-brand-guidelines.html` | The guidelines: lockups, spacing unit, clear space, minimum sizes, colour, type, approved grounds, partner lockup, misuse, open decisions |
+| `brand-context.md` | Brand context in the format the brand skills read. Start any new brand task here |
+| `brand-identity.md` | Visual identity brief |
+| `logo/horizontal/` | Four SVGs: color, reversed, black, white |
+| `logo/stacked/` | Four SVGs |
+| `logo/mark/` | Four SVGs |
+| `logo/alt-hooked-t/` | Eight SVGs that use Satoshi's hooked `t` (`t.ss03`) |
+| `png/` | Transparent 2x PNGs, colour and reversed |
 
-PNGs are transparent, 2x.
+All text is outlined. Nothing in these files depends on an installed font. SVGs are cropped tight to the artwork, so add 2u of clear space around them.
+
+## How the logo is built
+
+One unit, `u`, is the mark height divided by eight (43.55 px in the master files).
+
+| Part | Rule |
+| --- | --- |
+| Mark to text | 1u |
+| Text block width | 10u. Arabic and English share the same left and right ink edges |
+| Arabic descender to tallest English letter | 1/4 u |
+| Text block | Centred on the mark's height |
+| Clear space | 2u on every side |
+
+Minimum widths: horizontal 120 px (32 mm), stacked 90 px (24 mm), mark 24 px (6 mm).
 
 ## Colours
 
-| Use | Hex |
+| Name | Hex |
 | --- | --- |
-| Mark, dark green | `#03442D` |
-| Mark, light green. Also the Arabic dots | `#01BE84` |
-| Text | `#090E0E` |
+| Forest | `#03442D` |
+| Emerald | `#01BE84` |
+| Ink | `#090E0E` |
+| White | `#FFFFFF` |
+| Mist (proposed) | `#F2F7F5` |
 
-## Structure
+## Type
 
-Layers are named so they can be recoloured or split without hunting: `mark`, `arabic-letters`, `arabic-dots`, `english`.
+Latin is Satoshi Bold in the logo. Arabic is Madani Arabic Medium. The mark was traced from the reference render and cleaned so straight edges are exact horizontals and verticals. It sits within about 1 px of the reference at source scale.
 
-## Notes
+## Licences
 
-- The mark was traced from the reference render. Straight edges are true lines snapped to exact horizontal and vertical, curves are cubic Béziers fitted to the source. It sits within about 1 px of the reference at source scale.
-- The Arabic is set as plain `روشتة` (no tatweel). Both words are justified to the same ink width and share the same left and right edges.
-- Spacing: 11 px between the lowest Arabic descender and the tallest English letter, and the text block is centred on the mark's height.
-- The font files are not committed. Madani Arabic comes from the supplied family and Satoshi from Fontshare, so check licences before redistributing.
+Satoshi is under the ITF Free Font License, which allows logos and wordmarks made with it, including trademark registration. Madani Arabic came without a licence file. Confirm its terms before the logo ships. The guidelines page embeds Satoshi as a web font for its own display only.
+
+## Open decisions
+
+See the last section of the guidelines page. The main ones are which `t` to use, the weak contrast of the Emerald dots on white, and whether the name suits Saudi Arabia.
