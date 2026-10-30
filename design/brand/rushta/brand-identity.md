@@ -8,11 +8,11 @@ Rushta handles medical records, so the identity has to look careful before it lo
 
 ## 02 Logo direction
 
-**Primary direction.** Symbol plus a bilingual wordmark. Arabic leads and sits above English, which is set smaller and centred under it, with the mark on the left. A stacked version exists for square spaces. The mark works alone from 24 px up.
+**Primary direction.** Symbol plus a bilingual wordmark. Arabic sits above English, both justified to the same width and set in one colour, with the mark on the left. A stacked version exists for square spaces. The mark works alone from 24 px up.
 
 **Character.** Calm, exact, local. The sharp tips of the pinwheel are the only hard edge. Every other corner is rounded.
 
-**Style notes.** Constructed, not drawn. All spacing comes from one unit, `u`, which is the mark height divided by eight. The mark sits 2u from the text. The text block is as wide as the Arabic word, about 9.5u, and the English is set at 62 percent of the Arabic scale. The gap between the Arabic descender and the English cap top is half a unit. Clear space is 2u. Straight edges in the mark are true horizontal and vertical lines.
+**Style notes.** Constructed, not drawn. All spacing comes from one unit, `u`, which is the mark height divided by eight. The mark sits 2u from the text. The text block is 8.5u wide, with the Arabic and English words flush on both edges. The gap between the Arabic descender and the English cap top is three quarters of a unit. Clear space is 2u. Straight edges in the mark are true horizontal and vertical lines.
 
 **What to avoid.** The caduceus, the Rx glyph, pills, hearts, heartbeat lines and stethoscopes. A green cross on its own, because every pharmacy in the region already owns that signal. The twist is what makes this mark yours, so never flatten it back into a plain plus.
 
@@ -26,7 +26,7 @@ Rushta handles medical records, so the identity has to look careful before it lo
 **Primary colour.** Forest, `#03442D`. It carries trust and weight. White on Forest is 11.2 to 1.
 
 **Secondary colours.**
-- Emerald, `#01BE84`. The light arms of the mark and the Arabic dots. Use it as a fill, never as text on light grounds.
+- Emerald, `#01BE84`. The light arms of the mark. Use it as a fill, never as text on light grounds.
 - Ink, `#090E0E`. All logo text and body copy. 19.4 to 1 on white.
 - White, `#FFFFFF`, and Mist, `#F2F7F5` (proposed). Mist is the quiet ground for app screens and documents.
 
@@ -34,7 +34,7 @@ Rushta handles medical records, so the identity has to look careful before it lo
 
 **Usage rules.**
 - Emerald on white is only 2.41 to 1. It fails for text and for small interface parts. Put Ink on Emerald, never white (white on Emerald is also 2.41 to 1).
-- Emerald on Forest is 4.66 to 1, so the dots hold up on a dark green ground.
+- Emerald on Forest is 4.66 to 1, so the light arms hold up on a dark green ground.
 - Proportions on a typical page: White and Mist about 70 percent, Ink about 15, Forest about 10, Emerald 5 or less.
 
 **A conflict to resolve.** Emerald is also what most interfaces use for "success". In Rushta the status "Collected" is a success state. If brand green and success green are the same colour, a screen full of brand chrome looks like a screen full of good news. Give status colours their own tokens, and always pair them with a word or icon. That work belongs in the product design system, not here, but the identity must leave room for it.
@@ -106,5 +106,5 @@ Arabic needs more room than Latin. Add about 10 percent to Arabic line height, a
 ## Open decisions for you
 
 1. **Which `t`?** Satoshi's default `t` is a plain cross and can read as an `f` at small sizes ("Rushfa"). The alternate `t.ss03` has a hooked foot. Both are in the files. Pick one and retire the other before launch. I would pick the hooked one.
-2. **The dots on white.** At 2.41 to 1, the Emerald dots are the weakest part of the logo on a light ground, and in Arabic the dots decide which letter you are reading. Use the Black version when the logo is small or printed on cheap stock. The guidelines set the limit at 120 px.
+2. **Emerald on white.** The light arms are 2.41 to 1 against white. They are big shapes, so the logo reads, but Emerald must never carry text or small interface parts on a light ground. The Arabic dots are set in the text colour, so nothing small is left in Emerald.
 3. **Does the name work in Saudi Arabia?** See the open questions in `brand-context.md`.

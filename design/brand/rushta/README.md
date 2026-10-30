@@ -27,9 +27,10 @@ One unit, `u`, is the mark height divided by eight (25 px in the master files).
 | Part | Rule |
 | --- | --- |
 | Mark to text | 2u in the horizontal lockup, 1.5u in the stacked lockup |
-| Text block | As wide as the Arabic word, about 9.5u. The English sits centred under it |
-| English size | 62 percent of the Arabic scale, tracked 4 percent. Arabic leads |
-| Arabic descender to English cap top | Half a unit |
+| Text block | 8.5u wide. Arabic and English are justified to the same width |
+| English size | Set to the width of the Arabic word, tracked 4 percent |
+| Arabic descender to English cap top | Three quarters of a unit |
+| Arabic dots | Same colour as the text |
 | Text block position | Centred on the mark's height |
 | Clear space | 2u on every side |
 
@@ -55,4 +56,4 @@ Satoshi is under the ITF Free Font License, which allows logos and wordmarks mad
 
 ## Open decisions
 
-See the last section of the guidelines page. The main ones are which `t` to use, the weak contrast of the Emerald dots on white, and whether the name suits Saudi Arabia.
+See the last section of the guidelines page. The main ones are which `t` to use, Emerald never carrying text on white, and whether the name suits Saudi Arabia.
