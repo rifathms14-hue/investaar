@@ -22,6 +22,7 @@ Source: Rushta for GlowRx proposal (Munjze.com, October 2026), plus the logo wor
 ## The mark
 - **Story**: Four sheets of paper come together to form a medical cross. Each sheet is one of the four parties: doctors, patients, the pharmacy and the clinic. They meet at a single point, so all four are connected there.
 - **Source**: Given by the founder. It supersedes an earlier reading of the mark as a loop with medical reps as the fourth party.
+- **Construction**: One arm turned four times, built from circular arcs whose radii step down the golden ratio. See `construction/`.
 - **Which sheet is which party**: Not decided. The brand sheet places them clockwise from the top in the order doctors, patients, pharmacy, clinic as a placeholder.
 
 ## Brand Personality

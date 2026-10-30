@@ -12,6 +12,7 @@ Open `rushta-brand-guidelines.html` in a browser for the full guidelines. It is 
 | `rushta-brand-guidelines.html` | The guidelines: lockups, spacing unit, clear space, minimum sizes, colour, type, approved grounds, partner lockup, misuse, open decisions |
 | `brand-context.md` | Brand context in the format the brand skills read. Start any new brand task here |
 | `brand-identity.md` | Visual identity brief |
+| `construction/` | Circle and golden-ratio drawings (SVG and PNG) and the mark geometry as JSON |
 | `logo/horizontal/` | Four SVGs: color, reversed, black, white |
 | `logo/stacked/` | Four SVGs |
 | `logo/mark/` | Four SVGs |
@@ -21,7 +22,23 @@ Open `rushta-brand-guidelines.html` in a browser for the full guidelines. It is 
 
 All text is outlined. Nothing in these files depends on an installed font. SVGs are cropped tight to the artwork, so add 2u of clear space around them.
 
-## How the logo is built
+## How the mark is built
+
+One arm, turned four times. Every curve is a true circular arc, and every radius is a step on the golden ladder, measured in `h`, half the thickness of an arm. At a 200 px mark, `h` is 38.2 px.
+
+| Part | In h | At 200 px |
+| --- | --- | --- |
+| Reach, centre to arm end | phi squared, 2.618 | 100.0 |
+| Swoosh radius | 1 + 1/phi squared, 1.382 | 52.8 |
+| Swoosh circle centre | (-1/phi squared, -1) | (-14.6, -38.2) |
+| Big corner and fillet | 1/phi squared, 0.382 | 14.6 |
+| Small corner and channel gap | 1/phi cubed, 0.236 | 9.0 |
+
+The mark is exactly square and four-fold symmetric. Its width is phi squared times the thickness of an arm. The drawings are in `construction/`, and `construction/mark-geometry.json` holds the arcs.
+
+The construction was fitted to the reference mark with 92 percent overlap. The rest is the reference's own asymmetry.
+
+## How the lockup is built
 
 One unit, `u`, is the mark height divided by eight (25 px in the master files).
 
