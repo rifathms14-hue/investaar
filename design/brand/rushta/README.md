@@ -19,6 +19,7 @@ Open `rushta-brand-guidelines.html` in a browser for the full guidelines. It is 
 | `logo/alt-hooked-t/` | Eight SVGs that use Satoshi's hooked `t` (`t.ss03`) |
 | `logo/alt-lighter/` | Four SVGs with Satoshi Medium for the English line |
 | `png/` | Transparent 2x PNGs, colour and reversed |
+| `option-r/` | A second mark direction, the folded page that forms an R, with its own lockups, PNGs and golden-ratio construction. See `option-r/README.md` |
 
 All text is outlined. Nothing in these files depends on an installed font. SVGs are cropped tight to the artwork, so add clear space around them: phi times `h`, which is 61.8 px at the master size.
 
