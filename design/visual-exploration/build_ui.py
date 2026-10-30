@@ -114,6 +114,7 @@ def dir_c():
     return HEAD % ('Direction C', css, f'<div class="board">{dunes}<div class="row">{left}{right}</div></div>')
 
 
-for n, f in (('a', dir_a), ('b', dir_b), ('c', dir_c)):
+if __name__ == "__main__":
+  for n, f in (('a', dir_a), ('b', dir_b), ('c', dir_c)):
     open(f'direction-{n}.html', 'w', encoding='utf-8').write(f())
 print('ok')
