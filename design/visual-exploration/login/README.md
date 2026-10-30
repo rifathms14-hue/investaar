@@ -13,13 +13,14 @@ Mobile web is one column. Desktop is the brand panel on one side and the form on
 
 ## Style rules used
 
-- Cards and alerts have a radius of 12 to 16 px at most. Buttons are pills.
-- Inactive items have no fill. Selected items, the active code box and the chosen language are mint.
-- Main button is dark green. Secondary is light grey with a green tint and no stroke.
+- Main button `#02110C`. Secondary button `#D2DDCD`. Selected items are mint `#80DEC1`.
+- Boxes and cards are white with a soft shadow and a radius of 16 px at most. Buttons are pills.
+- The aurora gradient at the top is taken from the Login references. It is the only decorative element.
+- Mobile uses the number pad from the references. Desktop uses the keyboard.
 - Alerts have a status icon and a soft aurora glow along the edges in the status colours. A successful resend uses the green one as a toast.
 
 ## Prototype behaviour
 
-Any nine digits starting with 5 sends a code. The code `482916` verifies. Any other six digits goes to A03. The code expires after 4:59 and goes to A04. Resend is locked for 30 seconds. The 30 second lock, the loading states and the phone number message are my additions, not in the wireframes.
+Any nine digits starting with 5 sends a code. Use the on-screen pad or the keyboard. The code `482916` verifies. Any other six digits goes to A03. The code expires after 4:59 and goes to A04. Resend is locked for 30 seconds. The 30 second lock, the loading states and the phone number message are my additions, not in the wireframes.
 
 `build.py` writes `index.html` and `artifact.html`. The mark is the pinwheel placeholder.
