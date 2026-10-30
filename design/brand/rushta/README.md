@@ -20,7 +20,7 @@ Open `rushta-brand-guidelines.html` in a browser for the full guidelines. It is 
 | `logo/alt-lighter/` | Four SVGs with Satoshi Medium for the English line |
 | `png/` | Transparent 2x PNGs, colour and reversed |
 
-All text is outlined. Nothing in these files depends on an installed font. SVGs are cropped tight to the artwork, so add 2u of clear space around them.
+All text is outlined. Nothing in these files depends on an installed font. SVGs are cropped tight to the artwork, so add clear space around them: phi times `h`, which is 61.8 px at the master size.
 
 ## How the mark is built
 
@@ -40,17 +40,17 @@ The construction was fitted to the reference mark with 92 percent overlap. The r
 
 ## How the lockup is built
 
-One unit, `u`, is the mark height divided by eight (25 px in the master files).
+The lockup runs on the same unit as the mark, `h`, the half-thickness of an arm (38.2 px at the master size). Every gap is a golden-ratio step of `h`.
 
-| Part | Rule |
-| --- | --- |
-| Mark to text | 2u in the horizontal lockup, 1.5u in the stacked lockup |
-| Text block | 8.5u wide. Arabic and English are justified to the same width |
-| English size | Set to the width of the Arabic word, tracked 4 percent |
-| Arabic descender to English cap top | Three quarters of a unit |
-| Arabic dots | Same colour as the text |
-| Text block position | Centred on the mark's height |
-| Clear space | 2u on every side |
+| Part | Rule | At master size |
+| --- | --- | --- |
+| Mark to text | phi times h in the horizontal lockup. h in the stacked lockup | 61.8 px, 38.2 px |
+| Text block width | 2 phi squared times h, the same as the mark. Arabic and English are justified to it | 200 px |
+| English size | Set to the width of the Arabic word, tracked 4 percent | |
+| Arabic descender to English cap top | h divided by phi | 23.6 px |
+| Arabic dots | Same colour as the text | |
+| Text block position | Centred on the mark's height. Its inset is close to h divided by phi | |
+| Clear space | Phi times h on every side, the same as the mark to text gap | 61.8 px |
 
 Minimum widths: horizontal 120 px (32 mm), stacked 90 px (24 mm), mark 24 px (6 mm).
 
