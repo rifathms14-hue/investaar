@@ -9,6 +9,7 @@ Open `construction/` for the drawings. Every SVG here has outlined text and need
 | Path | What |
 | --- | --- |
 | `logo/horizontal/`, `logo/stacked/`, `logo/mark/` | Four SVGs each: color, reversed, black, white |
+| `rushta-r-lockups-preview.png` | All lockups and themes on white, Forest and Ink grounds |
 | `png/` | Transparent 2x PNGs, colour and reversed |
 | `construction/rushta-r-construction-circles.svg`, `.png` | Every arc with its circle, centre and radius in `u` |
 | `construction/rushta-r-construction-golden.svg`, `.png` | The head as a golden rectangle, with the spiral |
