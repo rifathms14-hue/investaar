@@ -8,6 +8,7 @@ Open `rushta-brand-guidelines.html` in a browser for the full guidelines. It is 
 
 | Path | What |
 | --- | --- |
+| `rushta-brand-sheet.png`, `.pdf`, `.html` | One-page brand sheet: concept, lockups, colour, type, construction, applications, misuse |
 | `rushta-brand-guidelines.html` | The guidelines: lockups, spacing unit, clear space, minimum sizes, colour, type, approved grounds, partner lockup, misuse, open decisions |
 | `brand-context.md` | Brand context in the format the brand skills read. Start any new brand task here |
 | `brand-identity.md` | Visual identity brief |
