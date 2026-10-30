@@ -8,11 +8,11 @@ Rushta handles medical records, so the identity has to look careful before it lo
 
 ## 02 Logo direction
 
-**Primary direction.** Symbol plus a bilingual wordmark. Arabic sits above English, both set to the same width, with the mark on the left. A stacked version exists for square spaces. The mark works alone from 24 px up.
+**Primary direction.** Symbol plus a bilingual wordmark. Arabic leads and sits above English, which is set smaller and centred under it, with the mark on the left. A stacked version exists for square spaces. The mark works alone from 24 px up.
 
 **Character.** Calm, exact, local. The sharp tips of the pinwheel are the only hard edge. Every other corner is rounded.
 
-**Style notes.** Constructed, not drawn. All spacing comes from one unit, `u`, which is the mark height divided by eight. The text block is exactly 10u wide. The gap between mark and text is 1u. Clear space is 2u. Straight edges in the mark are true horizontal and vertical lines.
+**Style notes.** Constructed, not drawn. All spacing comes from one unit, `u`, which is the mark height divided by eight. The mark sits 2u from the text. The text block is as wide as the Arabic word, about 9.5u, and the English is set at 62 percent of the Arabic scale. The gap between the Arabic descender and the English cap top is half a unit. Clear space is 2u. Straight edges in the mark are true horizontal and vertical lines.
 
 **What to avoid.** The caduceus, the Rx glyph, pills, hearts, heartbeat lines and stethoscopes. A green cross on its own, because every pharmacy in the region already owns that signal. The twist is what makes this mark yours, so never flatten it back into a plain plus.
 
