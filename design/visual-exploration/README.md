@@ -19,6 +19,6 @@ Three UI directions in the style of your references, in the Rushta colours. Open
 
 ## Notes
 
-- Type is Satoshi for Latin and Madani Arabic for Arabic. The Madani files are not committed because its licence is unconfirmed. Without them, Arabic falls back to a system font.
+- Type is Satoshi for English and Readex Pro for Arabic. Readex Pro is open source (SIL OFL) and is included in `assets/fonts/`. Satoshi has no Arabic glyphs, so Arabic text falls through to Readex Pro on its own.
 - Patient names, prescriptions and pharmacies are made up.
 - `build_ui.py` generates the three pages, `render.cjs` makes the PNGs.

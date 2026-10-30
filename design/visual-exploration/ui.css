@@ -2,12 +2,12 @@
 @font-face{font-family:Satoshi;font-weight:400;src:url(assets/fonts/Satoshi-Regular.woff2)}
 @font-face{font-family:Satoshi;font-weight:500;src:url(assets/fonts/Satoshi-Medium.woff2)}
 @font-face{font-family:Satoshi;font-weight:700;src:url(assets/fonts/Satoshi-Bold.woff2)}
-@font-face{font-family:Madani;font-weight:400;src:local("Madani Arabic Regular"),url(assets/fonts/Madani-Regular.ttf)}
-@font-face{font-family:Madani;font-weight:500;src:local("Madani Arabic Medium"),url(assets/fonts/Madani-Medium.ttf)}
-@font-face{font-family:Madani;font-weight:700;src:local("Madani Arabic Bold"),url(assets/fonts/Madani-Bold.ttf)}
+@font-face{font-family:"Readex Pro";font-weight:400;src:url(assets/fonts/ReadexPro-Regular.ttf)}
+@font-face{font-family:"Readex Pro";font-weight:500;src:url(assets/fonts/ReadexPro-Medium.ttf)}
+@font-face{font-family:"Readex Pro";font-weight:700;src:url(assets/fonts/ReadexPro-Bold.ttf)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Satoshi,Madani,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
-[dir=rtl]{font-family:Madani,Satoshi,sans-serif}
+body{font-family:Satoshi,"Readex Pro",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+[dir=rtl]{font-family:Satoshi,"Readex Pro",sans-serif}
 .board{position:relative;overflow:hidden}
 .phone{position:relative;width:390px;height:844px;border-radius:52px;overflow:hidden;background:#fff}
 .phone.frame{border-radius:60px;padding:0;box-shadow:0 0 0 3px #1b1f1e,0 0 0 11px #0b0d0d,0 0 0 13px #4a524f,0 40px 90px rgba(0,0,0,.45)}
