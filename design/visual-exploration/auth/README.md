@@ -1,6 +1,6 @@
 # Rushta access flow: working version
 
-Every access screen from the wireframes (A01 to A16) with the real behaviour behind it. The look is deliberately plain. The visual design from the Figma file goes on top later.
+Every access screen from the wireframes (A01 to A16) with the real behaviour behind it, styled from the Rushta Login UI Figma page: split card with the prescription art panel, coral progress line, language switch, Base Web gray ramp, `#02110C` and `#D2DDCD` buttons. Satoshi and Rubik are bundled in `assets/fonts`.
 
 ## Run it
 
@@ -62,3 +62,7 @@ The panel under the form (open with `?dev=1`) replaces the services that do not 
 - The signing PIN check on prescriptions (same three attempt lock) belongs with the doctor screens.
 - Retry rules for rep and operator PINs are not in the wireframes. They reuse the doctor rule.
 - Visual design, motion, the Munjze recovery flow itself.
+
+## Deploy
+
+Static site, no build. On Vercel set the root directory to `design/visual-exploration/auth`, framework preset Other, no build command. `vercel.json` in this folder only sets cache headers.

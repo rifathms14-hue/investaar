@@ -38,29 +38,44 @@ function setSession(session, user) { S.token = session.token; S.user = user; sto
 function dropSession() { S.token = null; S.user = null; storage.removeItem('rushta.token'); }
 
 // ---------- shell
+const MARK = `<svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><path fill="#03442D" transform="translate(7.4 12)" d="M 9.168 7.2468 L 9.168 10.9164 C 9.168 11.514 8.6832 11.9988 8.0856 11.9988 L 1.7508 11.9988 C 0.7848 11.9988 0 11.2152 0 10.248 L 0 4.5828 C 0 2.8512 0.7092 1.1952 1.9608 0 C 2.646 2.8152 4.9068 4.974 7.7508 5.5284 C 8.574 5.688 9.168 6.408 9.168 7.2468 Z"/><path fill="#03442D" transform="translate(7.4 0)" d="M 0 4.752 L 0 1.0824 C 0 0.4848 0.4848 0 1.0824 0 L 7.4172 0 C 8.3832 0 9.168 0.7836 9.168 1.7508 L 9.168 7.416 C 9.168 9.1476 8.4588 10.8036 7.2072 11.9988 C 6.522 9.1836 4.2612 7.0248 1.4172 6.4704 C 0.594 6.3108 0 5.5908 0 4.752 Z"/><path fill="#01BE84" transform="translate(0 7.4)" d="M 4.752 9.168 L 1.0824 9.168 C 0.4848 9.168 0 8.6832 0 8.0856 L 0 1.7508 C 0 0.7848 0.7836 0 1.7508 0 L 7.416 0 C 9.1476 0 10.8036 0.7092 11.9988 1.9608 C 9.1836 2.646 7.0248 4.9068 6.4704 7.7508 C 6.3108 8.574 5.5908 9.168 4.752 9.168 Z"/><path fill="#01BE84" transform="translate(12 7.4)" d="M 7.2468 0 L 10.9164 0 C 11.514 0 11.9988 0.4848 11.9988 1.0824 L 11.9988 7.4172 C 11.9988 8.3832 11.2152 9.168 10.248 9.168 L 4.5828 9.168 C 2.8512 9.168 1.1952 8.4588 0 7.2072 C 2.8152 6.522 4.974 4.2612 5.5284 1.4172 C 5.688 0.594 6.408 0 7.2468 0 Z"/></svg>`;
+const ICON = {
+  back: '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  chev: '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3.5 5.5L7 9l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  info: '<svg viewBox="0 0 18 18" width="18" height="18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.4"/><path d="M9 8v4.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="9" cy="5.6" r=".9" fill="currentColor"/></svg>',
+  alert: '<svg viewBox="0 0 18 18" width="18" height="18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7.25" stroke="currentColor" stroke-width="1.5"/><path d="M9 5.2v4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="12.3" r=".95" fill="currentColor"/></svg>',
+};
+// How far along sign in the progress line is. Screens outside the sign in path show none.
+const PROG = { signin: 0.33, signin_again: 0.33, verify: 0.66, wrong: 0.66, expired: 0.66, create_pin: 0.8, confirm_pin: 0.9, ready: 1 };
+const backTarget = () => ({ verify: 'signin', wrong: 'signin', expired: 'signin', confirm_pin: 'create_pin', device_limit: 'signin', recovery: S.token && S.from ? S.from : 'signin' }[S.screen]);
+
 function shell(inner) {
+  const p = PROG[S.screen]; const back = backTarget();
   return `<a class="skip" href="#main">${esc(t('skip'))}</a>
-  <div class="layout">
+  <div class="stage"><div class="card">
     <aside class="panel" aria-hidden="true">
-      <p class="lockup">${esc(t('brand'))}</p>
-      <div><p class="clinic">${esc(t('clinic'))}</p><p class="tagline">${esc(t('tagline'))}</p><p class="panel-sub">${esc(t('panelSub'))}</p></div>
+      <div class="fade"></div>
+      <div class="panel-text"><p class="tagline">${esc(t('tagline'))}</p><p class="panel-sub">${esc(t('panelSub'))}</p></div>
+      <p class="chip"><i></i><span>${esc(t('chip'))}</span></p>
     </aside>
     <div class="formside">
+      ${p != null ? `<div class="progress" role="progressbar" aria-label="${esc(t('progress'))}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(p * 100)}"><i style="width:${p * 100}%"></i></div>` : '<div class="progress-gap"></div>'}
       <header class="topbar">
-        ${S.backTo ? `<button type="button" class="link" data-act="back">${esc(t('back'))}</button>` : '<span></span>'}
-        <div class="langs" role="group" aria-label="Language">
-          <button type="button" data-lang="en" aria-pressed="${lang === 'en'}" lang="en">${STR.en.langEn}</button>
-          <button type="button" data-lang="ar" aria-pressed="${lang === 'ar'}" lang="ar">${STR.ar.langAr}</button>
+        ${back ? `<button type="button" class="iconbtn" data-act="back" aria-label="${esc(t('back'))}">${ICON.back}</button>` : '<span></span>'}
+        <div class="langswitch" dir="ltr" role="group" aria-label="Language">
+          <button type="button" data-lang="en" lang="en" aria-pressed="${lang === 'en'}">${STR.en.langEn}</button>
+          <button type="button" class="switch" role="switch" data-act="toggle-lang" aria-checked="${lang === 'ar'}" aria-label="${esc(t('switchLabel'))}"><i></i></button>
+          <button type="button" data-lang="ar" lang="ar" aria-pressed="${lang === 'ar'}">${STR.ar.langAr}</button>
         </div>
       </header>
       <main id="main" tabindex="-1">${inner}</main>
     </div>
-  </div>`;
+  </div></div>`;
 }
 
-const head = (key, eyebrow, lead) => `<p class="eyebrow">${esc(eyebrow)}</p><h1 id="title" tabindex="-1">${esc(t(key))}</h1>${lead ? `<p class="lead">${lead}</p>` : ''}`;
-const alertBox = (kind, title, body) => `<div class="alert alert-${kind}" role="alert"><strong>${esc(title)}</strong><span>${esc(body)}</span></div>`;
-const codeBoxes = (label, secret) => `<fieldset class="codefield"><legend>${esc(label)}</legend><div class="code" dir="ltr">${[0, 1, 2, 3, 4, 5].map(i =>
+const head = (key, eyebrow, lead) => `<div class="lockup">${MARK}<span>${esc(t('brand'))}</span></div>${eyebrow ? `<p class="sr-only">${esc(eyebrow)}</p>` : ''}<h1 id="title" tabindex="-1">${esc(t(key))}</h1>${lead ? `<p class="lead">${lead}</p>` : ''}`;
+const alertBox = (kind, title, body) => `<div class="alert alert-${kind}" role="alert"><span class="ic">${ICON.alert}</span><div><strong>${esc(title)}</strong><span>${esc(body)}</span></div></div>`;
+const codeBoxes = (label, secret) => `<fieldset class="codefield"><legend class="sr-only">${esc(label)}</legend><div class="code" dir="ltr">${[0, 1, 2, 3, 4, 5].map(i =>
   `<input ${secret ? 'type="password"' : 'type="text"'} inputmode="numeric" pattern="[0-9]*" autocomplete="${!secret && i === 0 ? 'one-time-code' : 'off'}" aria-label="${esc(label)} ${i + 1} / 6" data-i="${i}">`).join('')}</div></fieldset>`;
 const btn = (id, label, cls = 'btn-primary', extra = '') => `<button type="button" id="${id}" class="btn ${cls}" ${extra}>${esc(label)}</button>`;
 const status = () => `<p id="status" class="status" role="status" aria-live="polite">${S.flash ? esc(S.flash) : ''}</p>`;
@@ -98,7 +113,7 @@ const SCREENS = {
       html: `${head('signin.title', t('signin.eyebrow'), esc(t('signin.lead')))}
       <form id="f" novalidate>
         <label for="phone">${esc(t('signin.label'))}</label>
-        <div class="phone" dir="ltr"><span class="cc" aria-hidden="true">+966</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="5X XXX XXXX" aria-describedby="phone-help phone-err" value="${esc(formatNational(S.phone))}"></div>
+        <div class="phone" dir="ltr"><span class="cc" aria-hidden="true">+966 ${ICON.chev}</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="5X XXX XXXX" aria-describedby="phone-help phone-err" value="${esc(formatNational(S.phone))}"><span class="info" aria-hidden="true">${ICON.info}</span></div>
         <p id="phone-help" class="help">${esc(t('signin.help'))}</p>
         <p id="phone-err" class="error" role="alert">${S.error ? esc(S.error) : ''}</p>
         <button id="send" class="btn btn-primary" type="submit" disabled>${esc(t('signin.send'))}</button>
@@ -276,13 +291,16 @@ const landingScreen = () => (S.user.landing === 'home' ? 'home' : S.user.landing
 
 function verifyScreen(wrong) {
   const ch = S.challenge;
+  const lead = wrong ? esc(t('wrong.lead'))
+    : `${esc(t('verify.eyebrow'))}. ${esc(t('verify.lead', { masked: '\u0000' })).replace('\u0000', ltr(ch.masked))} <button type="button" id="change" class="link inline">${esc(t('verify.change'))}</button>`;
   return {
-    html: `${head(wrong ? 'wrong.title' : 'verify.title', t(wrong ? 'wrong.eyebrow' : 'verify.eyebrow'), wrong ? esc(t('wrong.lead')) : esc(t('verify.lead', { masked: '\u0000' })).replace('\u0000', ltr(ch.masked)))}
+    html: `${head(wrong ? 'wrong.title' : 'verify.title', wrong ? t('wrong.eyebrow') : '', lead)}
     ${codeBoxes(t('verify.codeLabel'), false)}
     ${wrong ? alertBox('error', t('wrong.alertTitle'), `${t('wrong.alertBody')} ${S.attemptsLeft != null ? t('wrong.left', { n: S.attemptsLeft }) : ''}`) : ''}
-    <p id="timer" class="timer"></p>${status()}
+    <div class="meta"><p id="timer" class="timer"></p>${btn('resend', t('verify.resend'), 'link', 'disabled')}</div>
+    ${status()}<p id="demo" class="demo" hidden></p>
     ${btn('go', wrong ? t('wrong.retry') : t('verify.submit'), 'btn-primary', 'disabled')}
-    <div class="actions">${btn('resend', t('verify.resend'), 'link', 'disabled')}${btn('change', wrong ? t('wrong.change') : t('verify.change'), 'link')}</div>`,
+    ${wrong ? btn('change', t('wrong.change'), 'btn-secondary') : ''}`,
     mount() {
       const go_ = () => busy($('#go'), async () => {
         const code = c.val(); if (code.length < CONFIG.otpLength) return;
@@ -305,6 +323,7 @@ function verifyScreen(wrong) {
         if (rb && !rb.hasAttribute('aria-busy')) { rb.disabled = wait > 0; rb.textContent = wait > 0 ? t('verify.resendIn', { s: Math.ceil(wait / 1000) }) : t('verify.resend'); }
       };
       tick(); every(500, tick); c.focus();
+      if (params.get('dev') !== '0') server.outbox().then(m => { const el = $('#demo'); if (el && m[0]) { el.hidden = false; el.innerHTML = `${esc(t('demo.code'))} ${ltr(m[0].code)}`; } });
     },
   };
 }
@@ -365,15 +384,17 @@ function render({ focus = true } = {}) {
   document.title = `${TITLE_KEY[S.screen] ? t(`${TITLE_KEY[S.screen]}.title`) : t(`ws.${S.screen}`)} · ${t('brand')}`;
   const v = SCREENS[S.screen]();
   $('#app').innerHTML = shell(v.html);
-  $('#app').querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => { lang = b.dataset.lang; storage.setItem('rushta.lang', lang); render({ focus: false }); $(`[data-lang="${lang}"]`)?.focus(); }));
-  const back = $('[data-act="back"]'); if (back) back.addEventListener('click', () => go(S.backTo));
+  const setLang = l => { lang = l; storage.setItem('rushta.lang', lang); render({ focus: false }); $(`[data-lang="${lang}"]`)?.focus(); };
+  $('#app').querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+  $('[data-act="toggle-lang"]').addEventListener('click', () => setLang(lang === 'ar' ? 'en' : 'ar'));
+  const back = $('[data-act="back"]'); if (back) back.addEventListener('click', () => go(backTarget()));
   v.mount && v.mount();
   if (focus && lastScreen !== S.screen) { const h = $('#title'); if (h && !document.activeElement?.closest('.code, .phone')) h.focus({ preventScroll: true }); }
   lastScreen = S.screen;
   renderDev();
 }
 
-function go(screen) { S.backTo = null; S.screen = screen; render(); }
+function go(screen) { S.screen = screen; render(); }
 
 // ---------- demo tools: simulated WhatsApp, demo accounts, time travel, support actions
 async function renderDev() {

@@ -3,7 +3,7 @@
 export const STR = {
   en: {
     brand: 'Rushta', clinic: 'GlowRx Clinic', tagline: 'Write. Share. Collect.', panelSub: 'A connected prescription workspace for your clinic and pharmacy.',
-    langEn: 'English', langAr: 'العربية', skip: 'Skip to the form', back: 'Back',
+    langEn: 'English', langAr: 'العربية', skip: 'Skip to the form', back: 'Back', progress: 'Sign in progress', switchLabel: 'Switch language', chip: 'The doctor signs. The patient opens a link.', 'demo.code': 'Demo only. Simulated WhatsApp code:',
     'signin.title': 'Sign in to Rushta', 'signin.eyebrow': 'Welcome back', 'signin.lead': 'Enter your mobile number to receive a verification code on WhatsApp.',
     'signin.label': 'Mobile number', 'signin.help': 'Use the number registered by your clinic.', 'signin.send': 'Send verification code',
     'signin.needA': 'Need access?', 'signin.needB': 'Ask your chief doctor to add your mobile number.',
@@ -32,7 +32,7 @@ export const STR = {
   },
   ar: {
     brand: 'رُشتة', clinic: 'عيادة GlowRx', tagline: 'اكتب. شارك. استلم.', panelSub: 'مساحة عمل وصفات مرتبطة لعيادتك وصيدليتك.',
-    langEn: 'English', langAr: 'العربية', skip: 'انتقل إلى النموذج', back: 'رجوع',
+    langEn: 'English', langAr: 'العربية', skip: 'انتقل إلى النموذج', back: 'رجوع', progress: 'تقدم تسجيل الدخول', switchLabel: 'تبديل اللغة', chip: 'الطبيب يوقّع. والمريض يفتح الرابط.', 'demo.code': 'للعرض فقط. رمز واتساب التجريبي:',
     'signin.title': 'تسجيل الدخول إلى رُشتة', 'signin.eyebrow': 'مرحبًا بعودتك', 'signin.lead': 'أدخل رقم جوالك لاستلام رمز التحقق عبر واتساب.',
     'signin.label': 'رقم الجوال', 'signin.help': 'استخدم الرقم المسجل لدى العيادة.', 'signin.send': 'إرسال رمز التحقق',
     'signin.needA': 'هل تحتاج إلى حساب؟', 'signin.needB': 'اطلب من الطبيب المسؤول إضافة رقم جوالك.',
