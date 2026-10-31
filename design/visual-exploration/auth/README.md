@@ -19,7 +19,7 @@ Query switches: `?dev=0` hides the demo tools, `?lang=ar`, `?device=phone|large`
 | Screen | Behaviour |
 | --- | --- |
 | A01 Sign in | Saudi mobile, nine digits starting with 5. Accepts `+966`, `00966`, `05` and Arabic digits when pasted. Button stays off until the number is valid. |
-| A02 Verify | Six boxes with auto advance, paste and one-time-code autofill. Five minute countdown. Resend unlocks after 30 s. Change number goes back. |
+| A02 Verify | Six boxes with auto advance, paste and one-time-code autofill. Five minute countdown. Resend unlocks after 30 s. There is no way to change the number from here; the number is the one the clinic registered. |
 | A03 Not recognised | Wrong code, with attempts left. Five wrong codes burn the challenge. |
 | A04 Expired | Expired or burned code, Send a new code issues a fresh one and kills the old one. |
 | A05 and A06 PIN | Six digits, entered twice. Repeats (111111) and runs (123456, 654321) are refused. |

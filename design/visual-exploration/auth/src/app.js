@@ -50,7 +50,7 @@ const ICON = {
 };
 // How far along sign in the progress line is. Screens outside the sign in path show none.
 const PROG = { signin: 0.33, signin_again: 0.33, verify: 0.66, wrong: 0.66, expired: 0.66, create_pin: 0.8, confirm_pin: 0.9, ready: 1 };
-const backTarget = () => ({ verify: 'signin', wrong: 'signin', expired: 'signin', confirm_pin: 'create_pin', device_limit: 'signin', recovery: S.token && S.from ? S.from : 'signin' }[S.screen]);
+const backTarget = () => ({ confirm_pin: 'create_pin', device_limit: 'signin', recovery: S.token && S.from ? S.from : 'signin' }[S.screen]);
 
 function shell(inner) {
   const p = PROG[S.screen]; const back = backTarget();
@@ -59,7 +59,6 @@ function shell(inner) {
     <aside class="panel" aria-hidden="true">
       <div class="fade"></div>
       <div class="panel-text"><p class="tagline">${esc(t('tagline'))}</p><p class="panel-sub">${esc(t('panelSub'))}</p></div>
-      <p class="chip"><i></i><span>${esc(t('chip'))}</span></p>
     </aside>
     <div class="formside">
       ${p != null ? `<div class="progress" role="progressbar" aria-label="${esc(t('progress'))}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(p * 100)}"><i style="width:${p * 100}%"></i></div>` : '<div class="progress-gap"></div>'}
@@ -141,10 +140,9 @@ const SCREENS = {
       html: `${head('expired.title', t('expired.eyebrow'), esc(t('expired.lead')))}
       ${alertBox('warn', t(many ? 'many.alertTitle' : 'expired.alertTitle'), t(many ? 'many.alertBody' : 'expired.alertBody'))}
       ${status()}
-      <div class="actions">${btn('resend', t('expired.send'))}${btn('change', t('wrong.change'), 'btn-secondary')}</div>`,
+      ${btn('resend', t('expired.send'))}`,
       mount() {
         $('#resend').addEventListener('click', e => busy(e.currentTarget, resend));
-        $('#change').addEventListener('click', () => go('signin'));
       },
     };
   },
@@ -250,10 +248,9 @@ const SCREENS = {
       <p id="phone-err" class="error" role="alert">${S.error ? esc(S.error) : ''}</p>
       ${btn('send', t('again.send'))}
       <div class="callout"><strong>${esc(t('again.stayTitle'))}</strong><span>${esc(t('again.stayBody'))}</span></div>
-      ${btn('other', t('again.other'), 'link')}`,
+`,
       mount() {
         $('#send').addEventListener('click', e => busy(e.currentTarget, () => requestCodeFor(S.phone)));
-        $('#other').addEventListener('click', () => { S.phone = ''; go('signin'); });
       },
     };
   },
@@ -295,7 +292,7 @@ const landingScreen = () => (S.user.landing === 'home' ? 'home' : S.user.landing
 function verifyScreen(wrong) {
   const ch = S.challenge;
   const lead = wrong ? esc(t('wrong.lead'))
-    : `${esc(t('verify.eyebrow'))}. ${esc(t('verify.lead', { masked: '\u0000' })).replace('\u0000', ltr(ch.masked))} <button type="button" id="change" class="link inline">${esc(t('verify.change'))}</button>`;
+    : `${esc(t('verify.eyebrow'))}. ${esc(t('verify.lead', { masked: '\u0000' })).replace('\u0000', ltr(ch.masked))}`;
   return {
     html: `${head(wrong ? 'wrong.title' : 'verify.title', wrong ? t('wrong.eyebrow') : '', lead)}
     ${codeBoxes(t('verify.codeLabel'), false)}
@@ -303,7 +300,7 @@ function verifyScreen(wrong) {
     <div class="meta"><p id="timer" class="timer"></p>${btn('resend', t('verify.resend'), 'link', 'disabled')}</div>
     ${status()}<p id="demo" class="demo" hidden></p>
     ${btn('go', wrong ? t('wrong.retry') : t('verify.submit'), 'btn-primary', 'disabled')}
-    ${wrong ? btn('change', t('wrong.change'), 'btn-secondary') : ''}`,
+`,
     mount() {
       const go_ = () => busy($('#go'), async () => {
         const code = c.val(); if (code.length < CONFIG.otpLength) return;
@@ -317,7 +314,6 @@ function verifyScreen(wrong) {
       if (wrong) c.invalid(true);
       $('#go').addEventListener('click', go_);
       $('#resend').addEventListener('click', e => busy(e.currentTarget, async () => { await resend(); c.clear(); }));
-      $('#change').addEventListener('click', () => go('signin'));
       const tick = () => {
         const left = ch.expiresAt - clock.now();
         if (left <= 0) { S.expiredReason = 'expired'; return go('expired'); }
