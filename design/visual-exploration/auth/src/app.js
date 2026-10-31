@@ -43,6 +43,9 @@ const ICON = {
   back: '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   chev: '<svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3.5 5.5L7 9l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   info: '<svg viewBox="0 0 18 18" width="18" height="18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.4"/><path d="M9 8v4.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="9" cy="5.6" r=".9" fill="currentColor"/></svg>',
+  ban: '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M5.6 5.6l12.8 12.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  warn: '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true"><path d="M12 4L2.8 19.5h18.4L12 4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 10v4.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>',
+  close: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
   alert: '<svg viewBox="0 0 18 18" width="18" height="18" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="7.25" stroke="currentColor" stroke-width="1.5"/><path d="M9 5.2v4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="12.3" r=".95" fill="currentColor"/></svg>',
 };
 // How far along sign in the progress line is. Screens outside the sign in path show none.
@@ -74,7 +77,7 @@ function shell(inner) {
 }
 
 const head = (key, eyebrow, lead) => `<div class="lockup">${MARK}<span>${esc(t('brand'))}</span></div>${eyebrow ? `<p class="sr-only">${esc(eyebrow)}</p>` : ''}<h1 id="title" tabindex="-1">${esc(t(key))}</h1>${lead ? `<p class="lead">${lead}</p>` : ''}`;
-const alertBox = (kind, title, body) => `<div class="alert alert-${kind}" role="alert"><span class="ic">${ICON.alert}</span><div><strong>${esc(title)}</strong><span>${esc(body)}</span></div></div>`;
+const alertBox = (kind, title, body) => `<div class="alert alert-${kind}" role="alert"><span class="ic">${kind === 'error' ? ICON.ban : ICON.warn}</span><div class="txt"><strong>${esc(title)}</strong><span>${esc(body)}</span></div><button type="button" class="x" data-dismiss aria-label="${esc(t('dismiss'))}">${ICON.close}</button></div>`;
 const codeBoxes = (label, secret) => `<fieldset class="codefield"><legend class="sr-only">${esc(label)}</legend><div class="code" dir="ltr">${[0, 1, 2, 3, 4, 5].map(i =>
   `<input ${secret ? 'type="password"' : 'type="text"'} inputmode="numeric" pattern="[0-9]*" autocomplete="${!secret && i === 0 ? 'one-time-code' : 'off'}" aria-label="${esc(label)} ${i + 1} / 6" data-i="${i}">`).join('')}</div></fieldset>`;
 const btn = (id, label, cls = 'btn-primary', extra = '') => `<button type="button" id="${id}" class="btn ${cls}" ${extra}>${esc(label)}</button>`;
@@ -388,6 +391,7 @@ function render({ focus = true } = {}) {
   $('#app').querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
   $('[data-act="toggle-lang"]').addEventListener('click', () => setLang(lang === 'ar' ? 'en' : 'ar'));
   const back = $('[data-act="back"]'); if (back) back.addEventListener('click', () => go(backTarget()));
+  $('#app').querySelectorAll('[data-dismiss]').forEach(b => b.addEventListener('click', () => b.closest('.alert').remove()));
   v.mount && v.mount();
   if (focus && lastScreen !== S.screen) { const h = $('#title'); if (h && !document.activeElement?.closest('.code, .phone')) h.focus({ preventScroll: true }); }
   lastScreen = S.screen;
