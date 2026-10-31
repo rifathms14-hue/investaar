@@ -38,10 +38,11 @@ try {
   assert.equal(await p.locator('#resend').isDisabled(), true);
   assert.equal(await p.locator('#go').isDisabled(), true);
 
-  step('A03 wrong code shows the alert and attempts left');
+  step('A03 wrong code shows inline error text and attempts left');
   const code = await lastCode(p); const wrong = code === '000000' ? '111111' : '000000';
   await typeCode(p, wrong); await p.click('#go'); await expectH1(p, 'Verification code not recognised');
-  assert.match(await p.locator('.alert').textContent(), /Incorrect code.*4 attempts left/);
+  assert.equal(await p.locator('.alert').count(), 0, 'no alert box for a wrong code');
+  assert.match(await p.locator('.code-error').textContent(), /did not match.*4 attempts left/);
 
   step('A02 resend unlocks after the cooldown');
   await dev(p, '+30 s'); await p.waitForFunction(() => !document.querySelector('#resend').disabled);

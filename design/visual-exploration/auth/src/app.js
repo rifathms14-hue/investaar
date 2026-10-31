@@ -299,7 +299,7 @@ function verifyScreen(wrong) {
   return {
     html: `${head(wrong ? 'wrong.title' : 'verify.title', wrong ? t('wrong.eyebrow') : '', lead)}
     ${codeBoxes(t('verify.codeLabel'), false)}
-    ${wrong ? alertBox('error', t('wrong.alertTitle'), `${t('wrong.alertBody')} ${S.attemptsLeft != null ? t('wrong.left', { n: S.attemptsLeft }) : ''}`) : ''}
+    ${wrong ? `<p class="error code-error" role="alert">${esc(t('wrong.alertBody'))} ${S.attemptsLeft != null ? esc(t('wrong.left', { n: S.attemptsLeft })) : ''}</p>` : ''}
     <div class="meta"><p id="timer" class="timer"></p>${btn('resend', t('verify.resend'), 'link', 'disabled')}</div>
     ${status()}<p id="demo" class="demo" hidden></p>
     ${btn('go', wrong ? t('wrong.retry') : t('verify.submit'), 'btn-primary', 'disabled')}
